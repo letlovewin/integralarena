@@ -1,0 +1,36 @@
+{
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+    "announcements" : {
+      "$announcements" : {
+        ".read":true,
+      	".write": "auth.uid==='JRxPXma6ZPdTTUcVSfNOPBFgMlo1'"
+      }
+      
+    },
+    "problems": {
+      "$problems" : {
+        ".read":true,
+      	".write": "auth.uid==='JRxPXma6ZPdTTUcVSfNOPBFgMlo1'"
+      }
+      
+    },
+    "solutions": {
+      ".read":false,
+      ".write":"auth.uid==='JRxPXma6ZPdTTUcVSfNOPBFgMlo1'"
+    },
+    "usernames": {
+      "$usernames" : {
+        ".read":true,
+      	".write":false
+      }
+    },
+    "users": {
+      "$user_id" : {
+        ".read":true,
+      	".write":"$user_id==auth.uid"
+      }
+    },
+    ".read": true
+  }
+}

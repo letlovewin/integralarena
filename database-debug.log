@@ -1,0 +1,5 @@
+20:12:55.533 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+20:12:55.774 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+20:12:58.693 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - integralsarena-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 157ms, init: 0ms
+20:12:58.847 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace integralsarena-default-rtdb status Active to Active
+22:10:23.658 [NamespaceSystem-blocking-namespace-operation-dispatcher-13] INFO com.firebase.core.namespace.StateManager - Namespace integralsarena-default-rtdb status Active to Active
