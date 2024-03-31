@@ -1,7 +1,7 @@
 import { c as create_ssr_component, d as add_attribute, e as escape, v as validate_component } from "../../../chunks/ssr.js";
 import { getApps, initializeApp, getApp } from "firebase/app";
 import "firebase/database";
-import { A as Auth, N as Navigation } from "../../../chunks/Navigation.js";
+import { A as Auth, N as Navigation, F as Footer } from "../../../chunks/Footer.js";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let webAppAuthComponent, webAppTitleState = "IntegralsArena", currentUserInformation, competitiveUserInformation, userAuthState, signUp, signIn, authErrorState, problemsRow, currentColorTheme = "light";
   const appConfig = {
@@ -83,7 +83,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         }
       },
       {}
-    )} <div class="card" style="margin-top: 0px;"><div class="card-body"><h4 style="text-align: left;" data-svelte-h="svelte-1gkpsen">Problems</h4> <div class="row"><div class="col"><div class="table-responsive"><table class="table table-striped"><thead data-svelte-h="svelte-1yt3dbg"><tr><th style="text-align: left;width: 111.188px;">Link</th> <th style="text-align: left;width: 111.188px;">Rating</th> <th style="text-align: center;width: 695.188px;">Problem</th> <th>Origin</th></tr></thead> <tbody${add_attribute("this", problemsRow, 0)} data-svelte-h="svelte-9bz9z8"></tbody></table></div></div></div></div></div></div></body></html>`;
+    )} <div class="card" style="margin-top: 0px;"><div class="card-body"><h4 style="text-align: left;" data-svelte-h="svelte-1gkpsen">Problems</h4> <div class="row"><div class="col"><div class="table-responsive"><table class="table table-striped table-hover"><thead data-svelte-h="svelte-1yt3dbg"><tr><th style="text-align: left;width: 111.188px;">Link</th> <th style="text-align: left;width: 111.188px;">Rating</th> <th style="text-align: center;width: 695.188px;">Problem</th> <th>Origin</th></tr></thead> <tbody${add_attribute("this", problemsRow, 0)} data-svelte-h="svelte-9bz9z8"></tbody></table></div></div></div></div></div></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
   } while (!$$settled);
   return $$rendered;
 });

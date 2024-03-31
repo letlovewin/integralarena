@@ -22,7 +22,7 @@
     <a
         class="navbar-brand fs-4 text-start link-body-emphasis"
         href="/"
-        style="margin-top: 6px;"
+        style="margin-top: 4px;margin-bottom:8px;"
         ><img
             alt="Icon"
             src={"/img/output-onlinepngtools.png"}
@@ -33,12 +33,24 @@
     >
 
     {#key currentUserInformation}
-        {#if currentUserInformation === "nouser"}
-            <a href="/login" style="margin-right: 10px;margin-left: 10px;"
-                >Login</a
-            ><a href="/register" style="margin-right: 10px;margin-left: 10px;"
-                >Register</a
-            >
+        {#if currentUserInformation != undefined}
+            {#if currentUserInformation == "nouser"}
+                <a
+                    href="/login"
+                    class="float-end"
+                    style="margin-right: 10px;margin-left: 10px;">Login</a
+                ><a
+                    href="/register"
+                    class="float-end"
+                    style="margin-right: 10px;margin-left: 10px;">Register</a
+                >
+            {:else}
+                <a
+                    href="/account/{currentUserInformation.displayName}"
+                    class="float-end"
+                    style="margin-right: 10px;margin-left: 10px;">My Profile</a
+                >
+            {/if}
         {/if}
     {/key}
 

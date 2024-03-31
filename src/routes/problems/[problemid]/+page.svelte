@@ -8,6 +8,7 @@
 
     import { ComputeEngine } from "@cortex-js/compute-engine";
     import IncorrectVerdict from "./IncorrectVerdict.svelte";
+    import Footer from "../../Footer.svelte";
 
     let webAppAuthComponent,
         webAppTitleState = "IntegralsArena",
@@ -169,22 +170,40 @@
             <div class="card" style="margin-top: 0px;">
                 <div class="card-body float-end" bind:this={verdictBody}>
                     <h1>{@html statement}</h1>
+                    <h6 class="text-primary">{rating} points</h6>
                     <h6>{title}</h6>
-                    <h5>Rating: {rating}</h5>
-                    <input
-                        type="text"
-                        bind:this={mathematicalExpressionInput}
-                    />
-                    <button
-                        class="btn btn-primary"
-                        on:click={() => {
-                            submitMathematicalExpression(
-                                mathematicalExpressionInput.value,
-                            );
-                        }}>Submit</button
-                    >
+                    {#key currentUserInformation}
+                        {#if currentUserInformation!=null}
+                            {#if currentUserInformation=="nouser"}
+                            <p>Oops! It seems like you're not logged in. Want to <a href="/login/">log in</a>?</p>
+                            {:else}
+                            <div class="input-group mb-3">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Answer"
+                                    aria-label="Answer submission"
+                                    aria-describedby="button-addon2"
+                                    bind:this={mathematicalExpressionInput}
+                                />
+                                <button
+                                    class="btn btn-primary"
+                                    type="button"
+                                    id="button-addon2"
+                                    on:click={() => {
+                                        submitMathematicalExpression(
+                                            mathematicalExpressionInput.value,
+                                        );
+                                    }}>Submit</button
+                                >
+                            </div>
+                            {/if}
+                        {/if}
+                    {/key}
+                    
                 </div>
             </div>
         </div>
     </body>
+    <Footer />
 </html>

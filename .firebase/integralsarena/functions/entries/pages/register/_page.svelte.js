@@ -1,6 +1,6 @@
 import { c as create_ssr_component, d as add_attribute, e as escape, v as validate_component } from "../../../chunks/ssr.js";
 import "../../../chunks/stores.js";
-import { A as Auth, N as Navigation } from "../../../chunks/Navigation.js";
+import { A as Auth, N as Navigation, F as Footer } from "../../../chunks/Footer.js";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let webAppAuthComponent, webAppTitleState = "IntegralsArena", currentUserInformation, competitiveUserInformation, userAuthState, signUp, signIn, authErrorState, currentColorTheme = "light";
   let usernameInputField, emailInputField, passwordInputField, confirmPasswordInputField;
@@ -69,7 +69,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         }
       },
       {}
-    )} <h4 style="color: var(--bs-emphasis-color);text-align: left;" data-svelte-h="svelte-191q4sm">Register</h4> <div class="input-group"></div> <hr style="color: var(--bs-emphasis-color);"> <div class="container vstack"><div class="input-group mb-3"><input type="text" class="form-control" placeholder="Username" aria-label="Username"${add_attribute("this", usernameInputField, 0)}></div> <div class="input-group mb-3"><input type="text" class="form-control" placeholder="Email" aria-label="Email"${add_attribute("this", emailInputField, 0)}></div> <div class="input-group mb-3"><input type="password" class="form-control" placeholder="Password" aria-label="Password"${add_attribute("this", passwordInputField, 0)}></div> <div class="input-group mb-3"><input type="password" class="form-control" placeholder="Confirm password" aria-label="Confirm password"${add_attribute("this", confirmPasswordInputField, 0)}></div>  <p style="color: var(--bs-form-invalid-border-color);margin-top: 4px;">${escape(authErrorState)}</p></div> <button class="btn btn-primary" data-svelte-h="svelte-3bjkk3">Register</button></div></body></html>`;
+    )} <h4 style="color: var(--bs-emphasis-color);text-align: left;" data-svelte-h="svelte-191q4sm">Register</h4> <div class="input-group"></div> <hr style="color: var(--bs-emphasis-color);"> <div class="container vstack"><div class="input-group mb-3"><input type="text" class="form-control" placeholder="Username" aria-label="Username"${add_attribute("this", usernameInputField, 0)}></div> <div class="input-group mb-3"><input type="text" class="form-control" placeholder="Email" aria-label="Email"${add_attribute("this", emailInputField, 0)}></div> <div class="input-group mb-3"><input type="password" class="form-control" placeholder="Password" aria-label="Password"${add_attribute("this", passwordInputField, 0)}></div> <div class="input-group mb-3"><input type="password" class="form-control" placeholder="Confirm password" aria-label="Confirm password"${add_attribute("this", confirmPasswordInputField, 0)}></div>  <p style="color: var(--bs-form-invalid-border-color);margin-top: 4px;">${escape(authErrorState)}</p></div> <button class="btn btn-primary" data-svelte-h="svelte-3bjkk3">Register</button></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
   } while (!$$settled);
   return $$rendered;
 });

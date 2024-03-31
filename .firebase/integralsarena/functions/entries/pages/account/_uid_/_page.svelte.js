@@ -2,7 +2,7 @@ import { c as create_ssr_component, d as add_attribute, e as escape, v as valida
 import { getApps, initializeApp, getApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import "../../../../chunks/stores.js";
-import { A as Auth, N as Navigation } from "../../../../chunks/Navigation.js";
+import { A as Auth, N as Navigation, F as Footer } from "../../../../chunks/Footer.js";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let webAppAuthComponent, webAppTitleState = "IntegralsArena", currentUserInformation, competitiveUserInformation, userAuthState, signUp, signIn, authErrorState, currentColorTheme = "light", submissionsTable, givenTitle;
   const firebaseConfig = {
@@ -92,7 +92,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         }
       },
       {}
-    )} <div class="card" style="margin-top: 0px;"><div class="card-body"><h3 style="text-align: left;"><strong>${escape(username)}</strong></h3> <!-- HTML_TAG_START -->${givenTitle}<!-- HTML_TAG_END --> <blockquote><em><!-- HTML_TAG_START -->${institution}<!-- HTML_TAG_END --></em></blockquote> <h6 style="text-align: left;">Elo: ${escape(rating)}</h6> <p data-svelte-h="svelte-1t336m5">Submissions</p> <div class="table-responsive"><table class="table table-striped"><thead data-svelte-h="svelte-1vo7axd"><tr><th>Date</th> <th>Problem</th> <th style="width: 145.312px;">Verdict</th></tr></thead> <tbody${add_attribute("this", submissionsTable, 0)}></tbody></table></div></div></div></div></body></html>`;
+    )} <div class="card" style="margin-top: 0px;"><div class="card-body"><h3 style="text-align: left;"><strong>${escape(username)}</strong></h3> <p style="text-align: left;"><!-- HTML_TAG_START -->${givenTitle}<!-- HTML_TAG_END --></p> <h6 style="text-align: left;">Elo: ${escape(rating)}</h6> <blockquote><em><!-- HTML_TAG_START -->${institution}<!-- HTML_TAG_END --></em></blockquote> <p data-svelte-h="svelte-1t336m5">Submissions</p> <div class="table-responsive"><table class="table table-striped table-hover"><thead data-svelte-h="svelte-1vo7axd"><tr><th>Date</th> <th>Problem</th> <th style="width: 145.312px;">Verdict</th></tr></thead> <tbody${add_attribute("this", submissionsTable, 0)}></tbody></table></div></div></div></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
   } while (!$$settled);
   return $$rendered;
 });

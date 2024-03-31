@@ -12,6 +12,7 @@
     import Navigation from "../../Navigation.svelte";
     import SubmissionsRow from "./SubmissionsRow.svelte";
     import { onMount } from "svelte";
+    import Footer from "../../Footer.svelte";
     let webAppAuthComponent,
         webAppTitleState = "IntegralsArena",
         currentUserInformation,
@@ -48,8 +49,8 @@
     if (browser) {
         onValue(ref(database, `/usernames/${username}`), (uidSnapshot) => {
             if (uidSnapshot.exists()) {
-                get(ref(database, `/users/${uidSnapshot.val().uid}`)).then(
-                    (trueUserData) => {
+                get(ref(database, `/users/${uidSnapshot.val().uid}`))
+                    .then((trueUserData) => {
                         display = trueUserData.val().username;
                         institution = trueUserData.val().battle_cry;
                         if (institution === "") {
@@ -57,7 +58,10 @@
                                 'No battle cry <a href="https://emoji.gg/emoji/3794-joobifrown"><img src="https://cdn3.emoji.gg/emojis/3794-joobifrown.png" width="64px" height="64px" alt="joobifrown"></a>';
                         }
                         rating = trueUserData.val().elo;
-                        if (rating <= 70) {
+                        if (display === "admin") {
+                            givenTitle =
+                                '<span style="color:#FA0000">C</span><span style="color:#FA4100">r</span><span style="color:#FA8200">e</span><span style="color:#FAC400">a</span><span style="color:#EFFA00">t</span><span style="color:#AEFA00">o</span><span style="color:#6DFA00">r</span> <span style="color:#2BFA00">o</span><span style="color:#00FA16">f</span> <span style="color:#00FA57">I</span><span style="color:#00FA98">n</span><span style="color:#00FAD9">t</span><span style="color:#00D9FA">e</span><span style="color:#0098FA">g</span><span style="color:#0057FA">r</span><span style="color:#0016FA">a</span><span style="color:#2B00FA">l</span><span style="color:#6D00FA">s</span><span style="color:#AE00FA">A</span><span style="color:#EF00FA">r</span><span style="color:#FA00C4">e</span><span style="color:#FA0082">n</span><span style="color:#FA0041">a</span>';
+                        } else if (rating <= 70) {
                             givenTitle =
                                 '<p class="text-primary" style="text-align:left;">Novice integrator</p>';
                         } else if (rating <= 140) {
@@ -67,38 +71,45 @@
                             givenTitle =
                                 '<p class="text-danger" style="text-align:left;">Integration wizard</p>';
                         }
-                    },
-                ).then(
-                get(
-                    child(
-                        ref(database),
-                        `/users/${uidSnapshot.val().uid}/submissions`,
-                    ),
-                ).then((snapshot) => {
-                    if (snapshot.exists()) {
-                        for (const [key, value] of Object.entries(
-                            snapshot.val(),
-                        )) {
-                            new SubmissionsRow({
-                                target: submissionsTable,
-                                props: {
-                                    date: key,
-                                    problem: value.problem,
-                                    verdict: value.verdict,
-                                },
-                            });
-                        }
-                    } else {
-                        new SubmissionsRow({
-                                target: submissionsTable,
-                                props: {
-                                    date: "",
-                                    problem: "No submissions yet...",
-                                    verdict: "",
-                                },
-                            });
-                    }
-                }));
+                    })
+                    .then(
+                        get(
+                            child(
+                                ref(database),
+                                `/users/${uidSnapshot.val().uid}/submissions`,
+                            ),
+                        ).then((snapshot) => {
+                            if (snapshot.exists()) {
+                                let i = 0;
+                                for (const [key, value] of Object.entries(
+                                    snapshot.val(),
+                                )) {
+                                    if (i < 10) {
+                                        new SubmissionsRow({
+                                            target: submissionsTable,
+                                            props: {
+                                                date: key,
+                                                problem: value.problem,
+                                                verdict: value.verdict,
+                                            },
+                                        });
+                                        i++;
+                                    } else {
+                                        break;
+                                    }
+                                }
+                            } else {
+                                new SubmissionsRow({
+                                    target: submissionsTable,
+                                    props: {
+                                        date: "",
+                                        problem: "No submissions yet...",
+                                        verdict: "",
+                                    },
+                                });
+                            }
+                        }),
+                    );
             } else {
                 goto("/");
             }
@@ -139,14 +150,17 @@
                     <h3 style="text-align: left;">
                         <strong>{username}</strong>
                     </h3>
-                    {@html givenTitle}
+                    <p style="text-align: left;">
+                        {@html givenTitle}
+                    </p>
+                    <h6 style="text-align: left;">Elo: {rating}</h6>
                     <blockquote>
                         <em>{@html institution}</em>
                     </blockquote>
-                    <h6 style="text-align: left;">Elo: {rating}</h6>
+
                     <p>Submissions</p>
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>Date</th>
@@ -161,4 +175,5 @@
             </div>
         </div></body
     >
+    <Footer />
 </html>

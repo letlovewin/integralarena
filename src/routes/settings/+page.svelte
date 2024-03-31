@@ -1,11 +1,13 @@
 <script>
     import { goto } from "$app/navigation";
     import { browser } from "$app/environment";
-    import {getApps, initializeApp, getApp} from "firebase/app";
-    import {getAuth} from "firebase/auth";
+    import { getApps, initializeApp, getApp } from "firebase/app";
+    import { getAuth } from "firebase/auth";
     import Auth from "../Auth.svelte";
     import Navigation from "../Navigation.svelte";
     import { signOut } from "firebase/auth";
+    import Footer from "../Footer.svelte";
+    import AccountUpdate from "./AccountUpdate.svelte";
 
     let webAppAuthComponent,
         webAppTitleState = "IntegralsArena",
@@ -18,7 +20,9 @@
         instField,
         sendVerificationEmail,
         saveChangesOnSettings,
-        currentColorTheme="light";
+        currentColorTheme = "light",
+        settingsBody;
+
     const appConfig = {
         apiKey: "AIzaSyDiDHodqqgXhmjtaharNv0yCLBnc-kDWe0",
         authDomain: "integralsarena.firebaseapp.com",
@@ -40,7 +44,7 @@
     }
 </script>
 
-<html data-bs-theme="{currentColorTheme}" lang="en">
+<html data-bs-theme={currentColorTheme} lang="en">
     <head>
         <meta charset="utf-8" />
         <meta
@@ -69,89 +73,99 @@
                 bind:sendVerificationEmail
                 bind:saveChangesOnSettings
             />
-            <Navigation bind:currentUserInformation bind:currentColorTheme/>
+            <Navigation bind:currentUserInformation bind:currentColorTheme />
             <div class="card" style="margin-top: 0px;">
-                <div class="card-body">
+                <div class="card-body" bind:this={settingsBody}>
                     <h4 style="text-align: left;">Settings</h4>
                     {#key currentUserInformation}
                         {#if currentUserInformation != null}
-                            <div
-                                class="container text-center text-wrap p-5 w-75"
-                            >
-                                {#if !currentUserInformation.emailVerified}
-                                    <h3>Your email isn't verified!</h3>
-                                    <p>
-                                        You won't be able to make any changes to
-                                        your account until you verify your
-                                        email.
-                                    </p>
-                                    <p>
-                                        If you don't see an email from us, look
-                                        in your junk folder, or click the button
-                                        below. If you mistakenly signed up with
-                                        a wrong email, <a
-                                            href="mailto:quitelean@gmail.com"
-                                            >contact us</a
-                                        >.
-                                    </p>
-                                    <button
-                                        class="btn btn-sm text-primary"
-                                        style="background-transparency:100%"
-                                        on:click={() => {
-                                            sendVerificationEmail();
-                                        }}>Send me a verification email</button
-                                    >
-                                    <button
-                                        class="btn btn-outline-secondary"
-                                        on:click={() => {
-                                            logOut();
-                                        }}>Log Out</button
-                                    >
-                                {:else}
-                                    <p class="text-wrap">
-                                        UID: {currentUserInformation.uid}
-                                    </p>
-                                    <div class="input-group mb-3">
-                                        <span
-                                            class="input-group-text"
-                                            id="username-addon">@</span
+                            {#if currentUserInformation != "nouser"}
+                                <div
+                                    class="container text-center text-wrap p-5 w-75"
+                                >
+                                    {#if !currentUserInformation.emailVerified}
+                                        <h3>Your email isn't verified!</h3>
+                                        <p>
+                                            You won't be able to make any
+                                            changes to your account until you
+                                            verify your email.
+                                        </p>
+                                        <p>
+                                            If you don't see an email from us,
+                                            look in your junk folder, or click
+                                            the button below. If you mistakenly
+                                            signed up with a wrong email, <a
+                                                href="mailto:portughalam@gmail.com"
+                                                >contact me</a
+                                            >.
+                                        </p>
+                                        <button
+                                            class="btn btn-sm text-primary"
+                                            style="background-transparency:100%"
+                                            on:click={() => {
+                                                sendVerificationEmail();
+                                            }}
+                                            >Send me a verification email</button
                                         >
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            placeholder={currentUserInformation.displayName}
-                                            aria-label={currentUserInformation.displayName}
-                                            aria-describedby="username-addon"
-                                            disabled
-                                        />
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Battle Cry"
-                                            aria-label="Battle Cry"
-                                            bind:value={instField}
-                                        />
-                                    </div>
-                                    <button
-                                        class="btn btn-primary"
-                                        on:click={() => {
-                                            saveChangesOnSettings(instField);
-                                        }}>Save changes</button
-                                    >
-                                    <button
-                                        class="btn btn-outline-secondary"
-                                        on:click={() => {
-                                            logOut();
-                                        }}>Log Out</button
-                                    >
-                                {/if}
-                            </div>
+                                        <button
+                                            class="btn btn-outline-secondary"
+                                            on:click={() => {
+                                                logOut();
+                                            }}>Log Out</button
+                                        >
+                                    {:else}
+                                        <p class="text-wrap">
+                                            UID: {currentUserInformation.uid}
+                                        </p>
+                                        <div class="input-group mb-3">
+                                            <span
+                                                class="input-group-text"
+                                                id="username-addon">@</span
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder={currentUserInformation.displayName}
+                                                aria-label={currentUserInformation.displayName}
+                                                aria-describedby="username-addon"
+                                                disabled
+                                            />
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="Battle Cry"
+                                                aria-label="Battle Cry"
+                                                bind:value={instField}
+                                            />
+                                        </div>
+                                        <button
+                                            class="btn btn-primary"
+                                            on:click={() => {
+                                                saveChangesOnSettings(
+                                                    instField,
+                                                ).then(()=>{
+                                                    new AccountUpdate({
+                                                        target: settingsBody
+                                                    })
+                                                });
+                                            }}>Save changes</button
+                                        >
+                                        <button
+                                            class="btn btn-outline-secondary"
+                                            on:click={() => {
+                                                logOut();
+                                            }}>Log Out</button
+                                        >
+                                    {/if}
+                                </div>
+                            {/if}
                         {/if}
                     {/key}
                 </div>
             </div>
         </div></body
     >
+    <Footer />
 </html>

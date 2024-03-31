@@ -61,7 +61,7 @@
         } else {
             userAuthState = false;
             currentUserInformation = "nouser";
-            if ($page.route.id === "/settings" || $page.route.id === "/account/[uid]" || $page.route.id === "/problems/[problemid]") {
+            if ($page.route.id === "/settings") {
                 if (browser) {
                     goto("/login");
                 }
@@ -69,7 +69,7 @@
         }
     });
 
-    export const saveChangesOnSettings = function (inst) {
+    export const saveChangesOnSettings = async function (inst) {
         if (userAuthState) {
             const userInfoRef = ref(
                 firebaseDatabase,
@@ -80,7 +80,23 @@
                 if (old_inst == inst) {
                     //do nothing since they are the same
                 } else {
-                    set(
+                    if(userInformation.val().submissions!=undefined&&userInformation.val().solved_problems!=undefined) {
+                        set(
+                        ref(
+                            firebaseDatabase,
+                            `users/${currentUserInformation.uid}`,
+                        ),
+                        {
+                            elo: userInformation.val().elo,
+                            uid: userInformation.val().uid,
+                            username: userInformation.val().username,
+                            battle_cry: inst,
+                            submissions: userInformation.val().submissions,
+                            solved_problems: userInformation.val().solved_problems
+                        },
+                    )
+                    } else {
+                        set(
                         ref(
                             firebaseDatabase,
                             `users/${currentUserInformation.uid}`,
@@ -91,11 +107,9 @@
                             username: userInformation.val().username,
                             battle_cry: inst,
                         },
-                    ).then(() => {
-                        if (browser) {
-                            goto("/");
-                        }
-                    });
+                    )
+                    }
+                    
                 }
             });
         }

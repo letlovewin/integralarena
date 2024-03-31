@@ -5,6 +5,7 @@
     import Auth from "./Auth.svelte";
     import Navigation from "./Navigation.svelte";
     import AnnouncementTableRow from "./AnnouncementTableRow.svelte";
+    import Footer from "./Footer.svelte";
 
     let webAppAuthComponent,
         webAppTitleState = "IntegralsArena",
@@ -89,10 +90,10 @@
                     <div class="row">
                         <div class="col">
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: left;"
+                                            <th style="text-align: left;width:30px;"
                                                 >Announcements</th
                                             >
                                             <th></th>
@@ -110,4 +111,5 @@
             </div>
         </div>
     </body>
+    <Footer />
 </html>

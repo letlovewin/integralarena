@@ -2,7 +2,7 @@ import { c as create_ssr_component, d as add_attribute, e as escape, v as valida
 import { getApps, initializeApp, getApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import "../../../../chunks/stores.js";
-import { A as Auth, N as Navigation } from "../../../../chunks/Navigation.js";
+import { A as Auth, N as Navigation, F as Footer } from "../../../../chunks/Footer.js";
 import "@cortex-js/compute-engine";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let webAppAuthComponent, webAppTitleState = "IntegralsArena", currentUserInformation, competitiveUserInformation, userAuthState, signUp, signIn, authErrorState, currentColorTheme = "light", mathematicalExpressionInput, verdictBody;
@@ -94,7 +94,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         }
       },
       {}
-    )} <div class="card" style="margin-top: 0px;"><div class="card-body float-end"${add_attribute("this", verdictBody, 0)}><h1><!-- HTML_TAG_START -->${statement}<!-- HTML_TAG_END --></h1> <h6>${escape(title)}</h6> <h5>Rating: ${escape(rating)}</h5> <input type="text"${add_attribute("this", mathematicalExpressionInput, 0)}> <button class="btn btn-primary" data-svelte-h="svelte-1e9qe2b">Submit</button></div></div></div></body></html>`;
+    )} <div class="card" style="margin-top: 0px;"><div class="card-body float-end"${add_attribute("this", verdictBody, 0)}><h1><!-- HTML_TAG_START -->${statement}<!-- HTML_TAG_END --></h1> <h6 class="text-primary">${escape(rating)} points</h6> <h6>${escape(title)}</h6> ${currentUserInformation != null ? `${currentUserInformation == "nouser" ? `<p data-svelte-h="svelte-1pli5kn">Oops! It seems like you&#39;re not logged in. Want to <a href="/login/">log in</a>?</p>` : `<div class="input-group mb-3"><input type="text" class="form-control" placeholder="Answer" aria-label="Answer submission" aria-describedby="button-addon2"${add_attribute("this", mathematicalExpressionInput, 0)}> <button class="btn btn-primary" type="button" id="button-addon2" data-svelte-h="svelte-3u7t7p">Submit</button></div>`}` : ``}</div></div></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
   } while (!$$settled);
   return $$rendered;
 });
