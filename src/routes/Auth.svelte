@@ -11,6 +11,7 @@
         setPersistence,
         browserLocalPersistence,
         sendEmailVerification,
+        sendPasswordResetEmail,
     } from "firebase/auth";
     import { getDatabase, ref, onValue, set, get } from "firebase/database";
     import { page } from "$app/stores";
@@ -68,6 +69,15 @@
             }
         }
     });
+
+    export const resetPassword = async function(email) {
+        sendPasswordResetEmail(firebaseAuth,email).then(()=>{
+            
+        })
+        .catch((error)=>{
+            authErrorState = "An unknown error occurred. Please reload the website and try again";
+        })
+    }
 
     export const saveChangesOnSettings = async function (inst) {
         if (userAuthState) {

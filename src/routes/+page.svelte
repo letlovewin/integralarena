@@ -36,28 +36,29 @@
     }
 
     const database = getDatabase(firebaseApp);
-    if(browser) {
+    if (browser) {
+        let announcements = [];
         get(child(ref(database), `/announcements/`)).then((snapshot) => {
-        if (snapshot.exists()) {
-            for (const [key, value] of Object.entries(snapshot.val())) {
-                //console.log(value);
-                new AnnouncementTableRow({
-                    target: announcementsRow,
-                    props: {
-                        title: value.title,
-                        author: value.author,
-                        content: value.content,
-                        
-                    },
-                });
+            if (snapshot.exists()) {
+                for (const [key, value] of Object.entries(snapshot.val())) {
+                    announcements.push(value);
+                }
+                for (let i=announcements.length-1;i>-1;i--) {
+                    new AnnouncementTableRow({
+                        target: announcementsRow,
+                        props: {
+                            title: announcements[i].title,
+                            author: announcements[i].author,
+                            content: announcements[i].content,
+                        },
+                    });
+                }
             }
-        }
-    });
+        });
     }
-    
 </script>
 
-<html data-bs-theme="{currentColorTheme}" lang="en">
+<html data-bs-theme={currentColorTheme} lang="en">
     <head>
         <meta charset="utf-8" />
         <meta
@@ -84,7 +85,7 @@
                 bind:authErrorState
                 bind:competitiveUserInformation
             />
-            <Navigation bind:currentUserInformation bind:currentColorTheme/>
+            <Navigation bind:currentUserInformation bind:currentColorTheme />
             <div class="card" style="margin-top: 0px;">
                 <div class="card-body">
                     <div class="row">
@@ -93,7 +94,8 @@
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: left;width:30px;"
+                                            <th
+                                                style="text-align: left;width:30px;"
                                                 >Announcements</th
                                             >
                                             <th></th>
@@ -101,7 +103,6 @@
                                         </tr>
                                     </thead>
                                     <tbody bind:this={announcementsRow}>
-
                                     </tbody>
                                 </table>
                             </div>

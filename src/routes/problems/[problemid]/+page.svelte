@@ -9,6 +9,7 @@
     import { ComputeEngine } from "@cortex-js/compute-engine";
     import IncorrectVerdict from "./IncorrectVerdict.svelte";
     import Footer from "../../Footer.svelte";
+    import ErrorVerdict from "./ErrorVerdict.svelte";
 
     let webAppAuthComponent,
         webAppTitleState = "IntegralsArena",
@@ -128,8 +129,10 @@
                     setTimeout(() => {
                         goto(`/account/${competitiveUserInformation.username}`);
                     }, 1000);
-                } else {
+                } else if(code=="false") {
                     new IncorrectVerdict({ target: verdictBody });
+                } else {
+                    new ErrorVerdict({target: verdictBody});
                 }
             });
     }
@@ -171,7 +174,7 @@
                 <div class="card-body float-end" bind:this={verdictBody}>
                     <h1>{@html statement}</h1>
                     <h6 class="text-primary">{rating} points</h6>
-                    <h6>{title}</h6>
+                    <h6><em>{title}</em></h6>
                     {#key currentUserInformation}
                         {#if currentUserInformation!=null}
                             {#if currentUserInformation=="nouser"}

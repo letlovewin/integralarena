@@ -13,7 +13,8 @@
         signUp,
         signIn,
         authErrorState,
-        currentColorTheme;
+        currentColorTheme,
+        resetPassword;
 
     let usernameInputField,
         emailInputField,
@@ -40,6 +41,7 @@
             bind:signIn
             bind:authErrorState
             bind:competitiveUserInformation
+            bind:resetPassword
         />
         <div
             class="container"
@@ -90,11 +92,12 @@
 <button class="btn text-secondary" style="background-transparency:100%">Forgot password</button>
                 -->
                 <p
-                    style="color: var(--bs-form-invalid-border-color);margin-top: 4px;"
+                    style="color: var(--bs-form-invalid-border-color);margin-top: 4px;margin-bottom:-2px;"
                 >
                     {authErrorState}
                 </p>
             </div>
+            <p><a href="#" on:click={()=>{resetPassword(emailInputField.value)}}>Forgot your password?</a></p>
             <button
                 class="btn btn-primary"
                 on:click={() => {

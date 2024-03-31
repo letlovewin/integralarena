@@ -59,8 +59,7 @@
                             >
                         </li>
                         <p>
-                            Don't include the constant of integration, you will
-                            be marked wrong by the virtual judge!
+                            Yes, include them.
                         </p>
                         <li><strong>When are new problems added?</strong></li>
                         <p>
@@ -84,7 +83,7 @@
                         </li>
                         <p><span class="text-danger">RJ</span> - Your submission was rejected.</p>
                         <p><span class="text-success">AC</span> - Your submission was accepted.</p>
-                        <p>You can see all of your submissions on your profile. The last 10, anyway.</p>
+                        <p>You can see all of your submissions on your profile.</p>
                         <li>
                             <strong>What can I put in my battle cry?</strong>
                         </li>

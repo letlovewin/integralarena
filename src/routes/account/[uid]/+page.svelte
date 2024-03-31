@@ -80,23 +80,23 @@
                             ),
                         ).then((snapshot) => {
                             if (snapshot.exists()) {
-                                let i = 0;
+                                let submissions = [];
                                 for (const [key, value] of Object.entries(
                                     snapshot.val(),
                                 )) {
-                                    if (i < 10) {
-                                        new SubmissionsRow({
+                                    submissions.push([key,{key: value}]);
+                                        
+                                        
+                                }
+                                for(let i=submissions.length-1;i>-1;i--) {
+                                    new SubmissionsRow({
                                             target: submissionsTable,
                                             props: {
-                                                date: key,
-                                                problem: value.problem,
-                                                verdict: value.verdict,
+                                                date: submissions[i][0],
+                                                problem: submissions[i][1].key.problem,
+                                                verdict: submissions[i][1].key.verdict,
                                             },
                                         });
-                                        i++;
-                                    } else {
-                                        break;
-                                    }
                                 }
                             } else {
                                 new SubmissionsRow({

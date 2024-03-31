@@ -26,6 +26,8 @@ function random(size) {
     return require("crypto").randomBytes(size).toString('hex');
 }
 
+
+
 /*
     @Function judgeMathematicalExpression
     @Description Function that judges a given mathematical expression.
@@ -49,71 +51,77 @@ exports.judgeMathematicalExpression = onRequest({ cors: true }, (request, respon
     const math = create(all, config)
     answerRef.once('value', (answerSnapshot) => {
         const solution = answerSnapshot.val().solution;
-        const ans = math.symbolicEqual(solution, expression);
-        const uidRef = firebaseDatabase.ref(`users/${user.uid}`)
-            uidRef.once('value', (userSnapshot) => {
-                logger.info(userSnapshot.val());
-                let username = userSnapshot.val().username;
-                let uid = userSnapshot.val().uid;
-                let elo = userSnapshot.val().elo;
-                let submissions = userSnapshot.val().submissions;
-                let solved_problems = userSnapshot.val().solved_problems;
-                let datetime = new Date();
-                let verd;
-                if(ans==true) {
-                    verd = "AC";
-                    if(submissions==undefined) {
-                        submissions = {};
-                        submissions[`${datetime}`] = {problem: problemid, verdict: verd};
-                    } else {
-                        submissions[`${datetime}`] = {problem: problemid, verdict: verd};
-                    }
-                    let battle_cry = userSnapshot.val().battle_cry;
-
-                    if(solved_problems==undefined) {
-                        solved_problems = {};
-                        solved_problems[`${problemid}`] = 1;
-                        elo +=  answerSnapshot.val().rating;
-                    } else {
-                        if(solved_problems[`${problemid}`]==undefined) {
-                            elo +=  answerSnapshot.val().rating;
-                            solved_problems[`${problemid}`] = 1;
+        try {
+            const ans = math.symbolicEqual(solution, expression);
+            const uidRef = firebaseDatabase.ref(`users/${user.uid}`)
+                uidRef.once('value', (userSnapshot) => {
+                    logger.info(userSnapshot.val());
+                    let username = userSnapshot.val().username;
+                    let uid = userSnapshot.val().uid;
+                    let elo = userSnapshot.val().elo;
+                    let submissions = userSnapshot.val().submissions;
+                    let solved_problems = userSnapshot.val().solved_problems;
+                    let datetime = new Date();
+                    let verd;
+                    if(ans==true) {
+                        verd = "AC";
+                        if(submissions==undefined) {
+                            submissions = {};
+                            submissions[`${datetime}`] = {problem: problemid, verdict: verd};
+                        } else {
+                            submissions[`${datetime}`] = {problem: problemid, verdict: verd};
                         }
-                    }
-                    uidRef.set({
-                        username: username,
-                        uid: uid,
-                        elo: elo,
-                        solved_problems: solved_problems,
-                        submissions: submissions,
-                        battle_cry: battle_cry
-                    }).then(() => {
-                        response.send({ code: `${ans}` });
-                        return;
-                    });
-                } else {
-                    verd = "RJ";
-                    if(submissions==undefined) {
-                        submissions = {};
-                        submissions[`${datetime}`] = {problem: problemid, verdict: verd};
+                        let battle_cry = userSnapshot.val().battle_cry;
+    
+                        if(solved_problems==undefined) {
+                            solved_problems = {};
+                            solved_problems[`${problemid}`] = 1;
+                            elo +=  answerSnapshot.val().rating;
+                        } else {
+                            if(solved_problems[`${problemid}`]==undefined) {
+                                elo +=  answerSnapshot.val().rating;
+                                solved_problems[`${problemid}`] = 1;
+                            }
+                        }
+                        uidRef.set({
+                            username: username,
+                            uid: uid,
+                            elo: elo,
+                            solved_problems: solved_problems,
+                            submissions: submissions,
+                            battle_cry: battle_cry
+                        }).then(() => {
+                            response.send({ code: `${ans}` });
+                            return;
+                        });
                     } else {
-                        submissions[`${datetime}`] = {problem: problemid, verdict: verd};
+                        verd = "RJ";
+                        if(submissions==undefined) {
+                            submissions = {};
+                            submissions[`${datetime}`] = {problem: problemid, verdict: verd};
+                        } else {
+                            submissions[`${datetime}`] = {problem: problemid, verdict: verd};
+                        }
+                        let battle_cry = userSnapshot.val().battle_cry;
+                        uidRef.set({
+                            username: username,
+                            uid: uid,
+                            elo: elo,
+                            solved_problems: solved_problems,
+                            submissions: submissions,
+                            battle_cry: battle_cry
+                        }).then(() => {
+                            response.send({ code: `${ans}` });
+                            return;
+                        });
                     }
-                    let battle_cry = userSnapshot.val().battle_cry;
-                    uidRef.set({
-                        username: username,
-                        uid: uid,
-                        elo: elo,
-                        solved_problems: solved_problems,
-                        submissions: submissions,
-                        battle_cry: battle_cry
-                    }).then(() => {
-                        response.send({ code: `${ans}` });
-                        return;
-                    });
-                }
-                
-            })
+                    
+                })
+        } catch (error) {
+            response.send({ code: `${error}` });
+            return;
+        }
+        
 
     })
 
