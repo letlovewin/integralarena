@@ -16,5 +16,5 @@
 <tr>
     <td class=" my-auto" style="height:25px;text-align: left;width: 45px;vertical-align:middle;color:{color};"><a href="/account/{rating}">{rating}</a></td>
     <td style="height:25px;font-size:large;vertical-align:middle;"><em>{@html statement}</em></td>
-    <td style="height:25px;vertical-align:middle;">{origin}</td>
+    <td style="height:25px;width:100px;vertical-align:middle;">{origin}</td>
 </tr>

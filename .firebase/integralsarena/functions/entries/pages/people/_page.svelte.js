@@ -1,9 +1,9 @@
-import { c as create_ssr_component, d as add_attribute, e as escape, v as validate_component } from "../../chunks/ssr.js";
+import { c as create_ssr_component, d as add_attribute, e as escape, v as validate_component } from "../../../chunks/ssr.js";
 import { getApps, initializeApp, getApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-import { A as Auth, N as Navigation, F as Footer } from "../../chunks/Footer.js";
+import "firebase/database";
+import { A as Auth, N as Navigation, F as Footer } from "../../../chunks/Footer.js";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let webAppAuthComponent, webAppTitleState = "IntegralsArena", currentUserInformation, competitiveUserInformation, userAuthState, signUp, signIn, authErrorState, announcementsRow, currentColorTheme = "light";
+  let webAppAuthComponent, webAppTitleState = "IntegralsArena", currentUserInformation, competitiveUserInformation, userAuthState, signUp, signIn, authErrorState, peopleRow, currentColorTheme = "light";
   const appConfig = {
     apiKey: "AIzaSyDiDHodqqgXhmjtaharNv0yCLBnc-kDWe0",
     authDomain: "integralsarena.firebaseapp.com",
@@ -13,13 +13,11 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     appId: "1:978478141428:web:f3566e7bc6ea602177b3a1",
     measurementId: "G-N5T6SMBHL2"
   };
-  let firebaseApp;
   if (getApps().length === 0) {
-    firebaseApp = initializeApp(appConfig);
+    initializeApp(appConfig);
   } else {
-    firebaseApp = getApp();
+    getApp();
   }
-  getDatabase(firebaseApp);
   let $$settled;
   let $$rendered;
   let previous_head = $$result.head;
@@ -85,7 +83,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         }
       },
       {}
-    )} <div class="card" style="margin-top: 0px;"><div class="card-body"><div class="row"><div class="col"><div class="table-responsive"><table class="table table-striped table-hover"><thead data-svelte-h="svelte-1wdch1d"><tr><th style="text-align: left;width:30px;">Announcements</th> <th></th> <th></th></tr></thead> <tbody${add_attribute("this", announcementsRow, 0)} data-svelte-h="svelte-1skx85c"></tbody></table></div></div></div> <a href="/people/" data-svelte-h="svelte-10n9ew7">See rankings...</a></div></div></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
+    )} <div class="card" style="margin-top: 0px;"><div class="card-body"><h4 style="text-align: left;" data-svelte-h="svelte-16hzwbo">People</h4> <div class="row"><div class="col"><div class="table-responsive"><table class="table table-striped table-hover"><thead data-svelte-h="svelte-ytqbib"><tr><th style="text-align: left;width: 111.188px;">Username</th> <th style="text-align: center;width: 695.188px;">Battle Cry</th> <th style="text-align: center;width: 111.188px;">Elo</th></tr></thead> <tbody${add_attribute("this", peopleRow, 0)} data-svelte-h="svelte-1l4v907"></tbody></table></div></div></div></div></div></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
   } while (!$$settled);
   return $$rendered;
 });

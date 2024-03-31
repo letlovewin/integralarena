@@ -38,6 +38,7 @@
         let problemset;
         get(child(ref(database), `/users/`)).then((snapshot) => {
             if (snapshot.exists()) {
+                let people = [];
                 for (const [key, value] of Object.entries(snapshot.val())) {
                     //console.log(value);
                     let battle_cry;
@@ -46,13 +47,18 @@
                     } else {
                         battle_cry = value.battle_cry;
                     }
+                    people.push([key,{rating:value.username,origin:parseInt(value.elo),statement:battle_cry}])
+                    
+                }
+                people.sort(function(a,b){return(a[1].origin-b[1].origin)});
+                for(let i=people.length-1;i>-1;i--) {
                     new PeopleTableRow({
                         target: peopleRow,
                         props: {
-                            rating: value.username,
-                            origin: value.elo,
-                            statement: battle_cry,
-                            link: `${key}`,
+                            rating: people[i][1].rating,
+                            origin: people[i][1].origin,
+                            statement: people[i][1].statement,
+                            link: people[i][0],
                         },
                     });
                 }
@@ -103,11 +109,11 @@
                                                 >Username</th
                                             >
                                             <th
-                                                style="text-align: center;width: 111.188px;"
+                                                style="text-align: center;width: 695.188px;"
                                                 >Battle Cry</th
                                             >
                                             <th
-                                                style="text-align: center;width: 695.188px;"
+                                                style="text-align: center;width: 111.188px;"
                                                 >Elo</th
                                             >
                                         </tr>

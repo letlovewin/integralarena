@@ -10,7 +10,7 @@ return {
 	assets: new Set(["bootstrap/css/bootstrap.min.css","bootstrap/js/bootstrap.min.js","custom.css","favicon.png","icon.png","img/output-onlinepngtools.png"]),
 	mimeTypes: {".css":"text/css",".js":"text/javascript",".png":"image/png"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.UCVZ7UiC.js","app":"_app/immutable/entry/app.DWImazYI.js","imports":["_app/immutable/entry/start.UCVZ7UiC.js","_app/immutable/chunks/entry.CPv9dRf0.js","_app/immutable/chunks/scheduler.D_sqSeie.js","_app/immutable/entry/app.DWImazYI.js","_app/immutable/chunks/scheduler.D_sqSeie.js","_app/immutable/chunks/index.CRPgblYZ.js"],"stylesheets":[],"fonts":[],"uses_env_dynamic_public":false},
+		client: {"start":"_app/immutable/entry/start.m4CdLY7h.js","app":"_app/immutable/entry/app.g3vx0QuV.js","imports":["_app/immutable/entry/start.m4CdLY7h.js","_app/immutable/chunks/entry.BDJvmx6-.js","_app/immutable/chunks/scheduler.D_sqSeie.js","_app/immutable/entry/app.g3vx0QuV.js","_app/immutable/chunks/scheduler.D_sqSeie.js","_app/immutable/chunks/index.CRPgblYZ.js"],"stylesheets":[],"fonts":[],"uses_env_dynamic_public":false},
 		nodes: [
 			__memo(() => import('./nodes/0.js')),
 			__memo(() => import('./nodes/1.js')),
@@ -21,7 +21,8 @@ return {
 			__memo(() => import('./nodes/6.js')),
 			__memo(() => import('./nodes/7.js')),
 			__memo(() => import('./nodes/8.js')),
-			__memo(() => import('./nodes/9.js'))
+			__memo(() => import('./nodes/9.js')),
+			__memo(() => import('./nodes/10.js'))
 		],
 		routes: [
 			{
@@ -53,31 +54,38 @@ return {
 				endpoint: null
 			},
 			{
+				id: "/people",
+				pattern: /^\/people\/?$/,
+				params: [],
+				page: { layouts: [0,], errors: [1,], leaf: 6 },
+				endpoint: null
+			},
+			{
 				id: "/problems",
 				pattern: /^\/problems\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 6 },
+				page: { layouts: [0,], errors: [1,], leaf: 7 },
 				endpoint: null
 			},
 			{
 				id: "/problems/[problemid]",
 				pattern: /^\/problems\/([^/]+?)\/?$/,
 				params: [{"name":"problemid","optional":false,"rest":false,"chained":false}],
-				page: { layouts: [0,], errors: [1,], leaf: 7 },
+				page: { layouts: [0,], errors: [1,], leaf: 8 },
 				endpoint: null
 			},
 			{
 				id: "/register",
 				pattern: /^\/register\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 8 },
+				page: { layouts: [0,], errors: [1,], leaf: 9 },
 				endpoint: null
 			},
 			{
 				id: "/settings",
 				pattern: /^\/settings\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 9 },
+				page: { layouts: [0,], errors: [1,], leaf: 10 },
 				endpoint: null
 			}
 		],

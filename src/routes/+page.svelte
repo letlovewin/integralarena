@@ -43,7 +43,7 @@
                 for (const [key, value] of Object.entries(snapshot.val())) {
                     announcements.push(value);
                 }
-                for (let i=announcements.length-1;i>-1;i--) {
+                for (let i = announcements.length - 1; i > -1; i--) {
                     new AnnouncementTableRow({
                         target: announcementsRow,
                         props: {
@@ -108,6 +108,7 @@
                             </div>
                         </div>
                     </div>
+                    <a href="/people/">See rankings...</a>
                 </div>
             </div>
         </div>
