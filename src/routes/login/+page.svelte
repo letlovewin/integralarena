@@ -97,7 +97,7 @@
                     {authErrorState}
                 </p>
             </div>
-            <p><a href="#" on:click={()=>{resetPassword(emailInputField.value)}}>Forgot your password?</a></p>
+            <p><a href="#top" on:click={()=>{resetPassword(emailInputField.value)}}>Forgot your password?</a></p>
             <button
                 class="btn btn-primary"
                 on:click={() => {

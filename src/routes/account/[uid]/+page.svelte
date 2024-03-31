@@ -84,19 +84,23 @@
                                 for (const [key, value] of Object.entries(
                                     snapshot.val(),
                                 )) {
-                                    submissions.push([key,{key: value}]);
-                                        
-                                        
+                                    submissions.push([key, { key: value }]);
                                 }
-                                for(let i=submissions.length-1;i>-1;i--) {
+                                for (
+                                    let i = submissions.length - 1;
+                                    i > -1;
+                                    i--
+                                ) {
                                     new SubmissionsRow({
-                                            target: submissionsTable,
-                                            props: {
-                                                date: submissions[i][0],
-                                                problem: submissions[i][1].key.problem,
-                                                verdict: submissions[i][1].key.verdict,
-                                            },
-                                        });
+                                        target: submissionsTable,
+                                        props: {
+                                            date: submissions[i][0],
+                                            problem:
+                                                submissions[i][1].key.problem,
+                                            verdict:
+                                                submissions[i][1].key.verdict,
+                                        },
+                                    });
                                 }
                             } else {
                                 new SubmissionsRow({
@@ -145,34 +149,38 @@
                 bind:competitiveUserInformation
             />
             <Navigation bind:currentUserInformation bind:currentColorTheme />
-            <div class="card" style="margin-top: 0px;">
-                <div class="card-body">
-                    <h3 style="text-align: left;">
-                        <strong>{username}</strong>
-                    </h3>
-                    <p style="text-align: left;">
-                        {@html givenTitle}
-                    </p>
-                    <h6 style="text-align: left;">Elo: {rating}</h6>
-                    <blockquote>
-                        <em>{@html institution}</em>
-                    </blockquote>
+            {#key display}
+                <div class="card" style="margin-top: 0px;">
+                    <div class="card-body">
+                        <h3 style="text-align: left;">
+                            <strong>{username}</strong>
+                        </h3>
+                        <p style="text-align: left;">
+                            {@html givenTitle}
+                        </p>
+                        <h6 style="text-align: left;">Elo: {rating}</h6>
+                        <blockquote>
+                            <em>{@html institution}</em>
+                        </blockquote>
 
-                    <p>Submissions</p>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Problem</th>
-                                    <th style="width: 145.312px;">Verdict</th>
-                                </tr>
-                            </thead>
-                            <tbody bind:this={submissionsTable}></tbody>
-                        </table>
+                        <p>Submissions</p>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Problem</th>
+                                        <th style="width: 145.312px;"
+                                            >Verdict</th
+                                        >
+                                    </tr>
+                                </thead>
+                                <tbody bind:this={submissionsTable}></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {/key}
         </div></body
     >
     <Footer />

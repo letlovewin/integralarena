@@ -46,6 +46,7 @@
                 >
             {:else}
                 <a
+                data-sveltekit-reload
                     href="/account/{currentUserInformation.displayName}"
                     class="float-end"
                     style="margin-right: 10px;margin-left: 10px;">My Profile</a

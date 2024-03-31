@@ -71,12 +71,7 @@
                             <strong>What format do I submit answers in?</strong>
                         </li>
                         <p>
-                            They should be in the same format that you'd type in
-                            expressions on a scientific calculator. For example,
-                            <math xmlns="http://www.w3.org/1998/Math/MathML"
-                                ><mfrac><mn>2</mn><mn>3</mn></mfrac><mi>cos</mi
-                                ><mo>(</mo><mi>x</mi><mo>)</mo></math
-                            > should be written as (2/3)*cos(x) if you're doing an answer submission. Unforunately, the virtual judge only supports raw expressions like these at the moment.
+                            Format them as you normally would, don't forget your constant of integration!
                         </p>
                         <li>
                             <strong>What do the different verdicts mean?</strong>

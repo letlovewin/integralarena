@@ -62,7 +62,18 @@
             }
         });
     }
+    const count = 200,
+        defaults = {
+            origin: { y: 0.7 },
+        };
 
+    function fire(particleRatio, opts) {
+        confetti(
+            Object.assign({}, defaults, opts, {
+                particleCount: Math.floor(count * particleRatio),
+            }),
+        );
+    }
     const virtualJudgeAPIUrl =
         "https://us-central1-integralsarena.cloudfunctions.net/judgeMathematicalExpression";
     function submitMathematicalExpression(expression) {
@@ -70,7 +81,7 @@
         fetch(virtualJudgeAPIUrl, {
             method: "POST",
             body: JSON.stringify({
-                expression: mathematicalExpressionInput.value,
+                expression: mathematicalExpressionInput.getValue("ascii-math"),
                 problemid: pid,
                 user_info: currentUserInformation,
             }),
@@ -85,21 +96,6 @@
                 let code = Res.code;
                 console.log(code);
                 if (code == "true") {
-                    const count = 200,
-                        defaults = {
-                            origin: { y: 0.7 },
-                        };
-
-                    function fire(particleRatio, opts) {
-                        confetti(
-                            Object.assign({}, defaults, opts, {
-                                particleCount: Math.floor(
-                                    count * particleRatio,
-                                ),
-                            }),
-                        );
-                    }
-
                     fire(0.25, {
                         spread: 26,
                         startVelocity: 55,
@@ -129,10 +125,10 @@
                     setTimeout(() => {
                         goto(`/account/${competitiveUserInformation.username}`);
                     }, 1000);
-                } else if(code=="false") {
+                } else if (code == "false") {
                     new IncorrectVerdict({ target: verdictBody });
                 } else {
-                    new ErrorVerdict({target: verdictBody});
+                    new ErrorVerdict({ target: verdictBody });
                 }
             });
     }
@@ -176,19 +172,19 @@
                     <h6 class="text-primary">{rating} points</h6>
                     <h6><em>{title}</em></h6>
                     {#key currentUserInformation}
-                        {#if currentUserInformation!=null}
-                            {#if currentUserInformation=="nouser"}
-                            <p>Oops! It seems like you're not logged in. Want to <a href="/login/">log in</a>?</p>
+                        {#if currentUserInformation != null}
+                            {#if currentUserInformation == "nouser"}
+                                <p>
+                                    Oops! It seems like you're not logged in.
+                                    Want to <a href="/login/">log in</a>?
+                                </p>
                             {:else}
-                            <div class="input-group mb-3">
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Answer"
-                                    aria-label="Answer submission"
-                                    aria-describedby="button-addon2"
+                                <math-field
+                                    class="w-100"
+                                    style="font-size:1rem; display: block"
                                     bind:this={mathematicalExpressionInput}
-                                />
+                                    ></math-field
+                                >
                                 <button
                                     class="btn btn-primary"
                                     type="button"
@@ -199,11 +195,9 @@
                                         );
                                     }}>Submit</button
                                 >
-                            </div>
                             {/if}
                         {/if}
                     {/key}
-                    
                 </div>
             </div>
         </div>

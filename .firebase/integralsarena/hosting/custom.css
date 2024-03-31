@@ -34,3 +34,13 @@ footer {
     height: 30px;
     margin-top: 10px;
 }
+
+/* Hide the virtual keyboard toggle */
+math-field::part(virtual-keyboard-toggle) {
+    display: none;
+}
+
+/* Hide the menu toggle */
+math-field::part(menu-toggle) {
+    display: none;
+}
