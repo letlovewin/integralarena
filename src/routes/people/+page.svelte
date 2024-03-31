@@ -4,8 +4,8 @@
     import { browser } from "$app/environment";
     import Auth from "../Auth.svelte";
     import Navigation from "../Navigation.svelte";
-    import ProblemTableRow from "./ProblemTableRow.svelte";
     import Footer from "../Footer.svelte";
+    import PeopleTableRow from "./PeopleTableRow.svelte";
 
     let webAppAuthComponent,
         webAppTitleState = "IntegralsArena",
@@ -15,8 +15,8 @@
         signUp,
         signIn,
         authErrorState,
-        problemsRow,
-        currentColorTheme="light";
+        peopleRow,
+        currentColorTheme = "light";
     const appConfig = {
         apiKey: "AIzaSyDiDHodqqgXhmjtaharNv0yCLBnc-kDWe0",
         authDomain: "integralsarena.firebaseapp.com",
@@ -32,24 +32,27 @@
     } else {
         firebaseApp = getApp();
     }
-    if (browser) { //DO NOT DELETE THIS IF STATEMENT. IF YOU DO YOU WILL GET THE MOST FUCKING ANNOYING ERROR IN EXISTENCE AND YOU WON'T KNOW WHY.
+    if (browser) {
+        //DO NOT DELETE THIS IF STATEMENT. IF YOU DO YOU WILL GET THE MOST FUCKING ANNOYING ERROR IN EXISTENCE AND YOU WON'T KNOW WHY.
         const database = getDatabase(firebaseApp);
         let problemset;
-        get(child(ref(database), `/problems/`)).then((snapshot) => {
+        get(child(ref(database), `/users/`)).then((snapshot) => {
             if (snapshot.exists()) {
-                let problems = [];
                 for (const [key, value] of Object.entries(snapshot.val())) {
-                    problems.push([key,{rating:value.rating,origin:value.origin,statement:value.statement},]);
-                }
-                problems.sort(function(a,b){return(a[1].rating-b[1].rating)});
-                for(let i = problems.length-1;i>-1;i--) {
-                    new ProblemTableRow({
-                        target: problemsRow,
+                    //console.log(value);
+                    let battle_cry;
+                    if (value.battle_cry === "") {
+                        battle_cry = "No battle cry...";
+                    } else {
+                        battle_cry = value.battle_cry;
+                    }
+                    new PeopleTableRow({
+                        target: peopleRow,
                         props: {
-                            rating: problems[i][1].rating,
-                            origin: problems[i][1].origin,
-                            statement: problems[i][1].statement,
-                            link: problems[i][0],
+                            rating: value.username,
+                            origin: value.elo,
+                            statement: battle_cry,
+                            link: `${key}`,
                         },
                     });
                 }
@@ -58,7 +61,7 @@
     }
 </script>
 
-<html data-bs-theme="{currentColorTheme}" lang="en">
+<html data-bs-theme={currentColorTheme} lang="en">
     <head>
         <meta charset="utf-8" />
         <meta
@@ -85,10 +88,10 @@
                 bind:authErrorState
                 bind:competitiveUserInformation
             />
-            <Navigation bind:currentUserInformation bind:currentColorTheme/>
+            <Navigation bind:currentUserInformation bind:currentColorTheme />
             <div class="card" style="margin-top: 0px;">
                 <div class="card-body">
-                    <h4 style="text-align: left;">Problems</h4>
+                    <h4 style="text-align: left;">People</h4>
                     <div class="row">
                         <div class="col">
                             <div class="table-responsive">
@@ -97,20 +100,19 @@
                                         <tr>
                                             <th
                                                 style="text-align: left;width: 111.188px;"
-                                                >Link</th
+                                                >Username</th
                                             >
                                             <th
-                                                style="text-align: left;width: 111.188px;"
-                                                >Rating</th
+                                                style="text-align: center;width: 111.188px;"
+                                                >Battle Cry</th
                                             >
                                             <th
                                                 style="text-align: center;width: 695.188px;"
-                                                >Problem</th
+                                                >Elo</th
                                             >
-                                            <th>Origin</th>
                                         </tr>
                                     </thead>
-                                    <tbody bind:this={problemsRow}> </tbody>
+                                    <tbody bind:this={peopleRow}> </tbody>
                                 </table>
                             </div>
                         </div>
