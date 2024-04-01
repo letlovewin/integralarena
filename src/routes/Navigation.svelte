@@ -29,7 +29,7 @@
             width="28"
             height="28"
             style="margin-right: 5px;"
-        />IntegralsArena</a
+        />IntegralsArena.tech</a
     >
 
     {#key currentUserInformation}
