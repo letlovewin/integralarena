@@ -22,14 +22,14 @@
     <a
         class="navbar-brand fs-4 text-start link-body-emphasis"
         href="/"
-        style="margin-top: 4px;margin-bottom:8px;"
+        style="margin-top: 4px;margin-bottom:12px;"
         ><img
-            alt="Icon"
-            src={"/img/output-onlinepngtools.png"}
-            width="28"
-            height="28"
-            style="margin-right: 5px;"
-        />IntegralsArena.tech</a
+        alt="Icon"
+        src={"/img/output-onlinepngtools.png"}
+        width="24"
+        height="24"
+        style="margin-right:5px;"
+    />IntegralsArena.tech</a
     >
 
     {#key currentUserInformation}
@@ -38,11 +38,11 @@
                 <a
                     href="/login"
                     class="float-end"
-                    style="margin-right: 10px;margin-left: 10px;">Login</a
+                    style="margin-right: 5px;">Login</a
                 ><a
                     href="/register"
                     class="float-end"
-                    style="margin-right: 10px;margin-left: 10px;">Register</a
+                    style="margin-right: 5px;margin-left: 5px;">Register</a
                 >
             {:else}
                 <a

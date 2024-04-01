@@ -121,67 +121,61 @@
     }
 </script>
 
-<html data-bs-theme={currentColorTheme} lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-        />
-        <title>{webAppTitleState}</title>
-    </head>
+<svelte:head>
+    <meta charset="utf-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>{webAppTitleState}</title>
+</svelte:head>
 
-    <body
-        class="bg-body"
-        style="background: var(--bs-secondary-bg);color: var(--bs-card-bg);"
-    >
-        <div
-            class="container"
-            style="text-align: center;background: transparent;color: transparent;max-width: 1000px;"
-        >
-            <Auth
-                bind:this={webAppAuthComponent}
-                bind:currentUserInformation
-                bind:userAuthState
-                bind:signUp
-                bind:signIn
-                bind:authErrorState
-                bind:competitiveUserInformation
-            />
-            <Navigation bind:currentUserInformation bind:currentColorTheme />
-            {#key display}
-                <div class="card" style="margin-top: 0px;">
-                    <div class="card-body">
-                        <h3 style="text-align: left;">
-                            <strong>{username}</strong>
-                        </h3>
-                        <p style="text-align: left;">
-                            {@html givenTitle}
-                        </p>
-                        <h6 style="text-align: left;">Elo: {rating}</h6>
-                        <blockquote>
-                            <em>{@html institution}</em>
-                        </blockquote>
+<div
+    class="container"
+    style="text-align: center;background: transparent;color: transparent;max-width: 1000px;"
+>
+    <Auth
+        bind:this={webAppAuthComponent}
+        bind:currentUserInformation
+        bind:userAuthState
+        bind:signUp
+        bind:signIn
+        bind:authErrorState
+        bind:competitiveUserInformation
+    />
+    <Navigation bind:currentUserInformation bind:currentColorTheme />
+    {#key display}
+        <div class="card" style="margin-top: 0px;">
+            <div class="card-body">
+                <h3 style="text-align: left;">
+                    <strong>{username}</strong>
+                </h3>
+                <p style="text-align: left;">
+                    {@html givenTitle}
+                </p>
+                <h6 style="text-align: left;">Elo: {rating}</h6>
+                <blockquote>
+                    <em>{@html institution}</em>
+                </blockquote>
 
-                        <p>Submissions</p>
-                        <div class="table-responsive overflow-scroll" style="max-height:450px;">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Problem</th>
-                                        <th style="width: 145.312px;"
-                                            >Verdict</th
-                                        >
-                                    </tr>
-                                </thead>
-                                <tbody bind:this={submissionsTable}></tbody>
-                            </table>
-                        </div>
-                    </div>
+                <p>Submissions</p>
+                <div
+                    class="table-responsive overflow-scroll"
+                    style="max-height:450px;"
+                >
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Problem</th>
+                                <th style="width: 145.312px;">Verdict</th>
+                            </tr>
+                        </thead>
+                        <tbody bind:this={submissionsTable}></tbody>
+                    </table>
                 </div>
-            {/key}
-        </div></body
-    >
-    <Footer />
-</html>
+            </div>
+        </div>
+    {/key}
+</div>
+<Footer />

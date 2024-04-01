@@ -68,71 +68,64 @@
     }
 </script>
 
-<html data-bs-theme={currentColorTheme} lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-        />
-        <title>{webAppTitleState}</title>
-    </head>
+<svelte:head>
+    <meta charset="utf-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>{webAppTitleState}</title>
+</svelte:head>
 
-    <body
-        class="bg-body"
-        style="background: var(--bs-secondary-bg);color: var(--bs-card-bg);"
-    >
-        <div
-            class="container"
-            style="text-align: center;background: transparent;color: transparent;max-width: 1000px;"
-        >
-            <Auth
-                bind:this={webAppAuthComponent}
-                bind:currentUserInformation
-                bind:userAuthState
-                bind:signUp
-                bind:signIn
-                bind:authErrorState
-                bind:competitiveUserInformation
-            />
-            <Navigation bind:currentUserInformation bind:currentColorTheme />
+<div
+    class="container"
+    style="text-align: center;background: transparent;color: transparent;max-width: 1000px;"
+>
+    <Auth
+        bind:this={webAppAuthComponent}
+        bind:currentUserInformation
+        bind:userAuthState
+        bind:signUp
+        bind:signIn
+        bind:authErrorState
+        bind:competitiveUserInformation
+    />
+    <Navigation bind:currentUserInformation bind:currentColorTheme />
 
-            <div class="card" style="margin-top: 0px;">
-                <div class="card-body">
-                    <h4 style="text-align: left;">Problems</h4>
-                    <div class="row">
-                        <div class="col">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th
-                                                style="text-align: left;width: 111.188px;"
-                                                >Link</th
-                                            >
-                                            <th
-                                                style="text-align: left;width: 111.188px;"
-                                                >Rating</th
-                                            >
-                                            <th
-                                                style="text-align: center;width: 695.188px;"
-                                                >Problem</th
-                                            >
-                                            <th>Origin</th>
-                                        </tr>
-                                    </thead>
-                                    {#await problems}
-                                        <p>Loading problems...</p>
-                                    {:then}
-                                        <tbody bind:this={problemsRow}> </tbody>
-                                    {/await}
-                                </table>
-                            </div>
-                        </div>
+    <div class="card" style="margin-top: 0px;">
+        <div class="card-body">
+            <h4 style="text-align: left;">Problems</h4>
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th
+                                        style="text-align: left;width: 111.188px;"
+                                        >Link</th
+                                    >
+                                    <th
+                                        style="text-align: left;width: 111.188px;"
+                                        >Rating</th
+                                    >
+                                    <th
+                                        style="text-align: center;width: 695.188px;"
+                                        >Problem</th
+                                    >
+                                    <th>Origin</th>
+                                </tr>
+                            </thead>
+                            {#await problems}
+                                <p>Loading problems...</p>
+                            {:then}
+                                <tbody bind:this={problemsRow}> </tbody>
+                            {/await}
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
-    <Footer />
-</html>
+    </div>
+</div>
+<Footer />

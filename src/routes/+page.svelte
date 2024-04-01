@@ -58,61 +58,55 @@
     }
 </script>
 
-<html data-bs-theme={currentColorTheme} lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="google-site-verification" content="lUKKjxqRuE0azrMidIronf1LujkFmZTJ4JHmLy2Bdvw" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-        />
-        <title>{webAppTitleState}</title>
-    </head>
+<svelte:head>
+    <meta charset="utf-8" />
+    <meta
+        name="google-site-verification"
+        content="lUKKjxqRuE0azrMidIronf1LujkFmZTJ4JHmLy2Bdvw"
+    />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>{webAppTitleState}</title>
+</svelte:head>
 
-    <body
-        class="bg-body"
-        style="background: var(--bs-secondary-bg);color: var(--bs-card-bg);"
-    >
-        <div
-            class="container"
-            style="text-align: center;background: transparent;color: transparent;max-width: 1000px;"
-        >
-            <Auth
-                bind:this={webAppAuthComponent}
-                bind:currentUserInformation
-                bind:userAuthState
-                bind:signUp
-                bind:signIn
-                bind:authErrorState
-                bind:competitiveUserInformation
-            />
-            <Navigation bind:currentUserInformation bind:currentColorTheme />
-            <div class="card" style="margin-top: 0px;">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th
-                                                style="text-align: left;width:30px;"
-                                                >Announcements</th
-                                            >
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody bind:this={announcementsRow}>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+<Auth
+    bind:this={webAppAuthComponent}
+    bind:currentUserInformation
+    bind:userAuthState
+    bind:signUp
+    bind:signIn
+    bind:authErrorState
+    bind:competitiveUserInformation
+/>
+<div
+    class="container"
+    style="text-align: center;background: transparent;color: transparent;max-width: 1000px;"
+>
+    <Navigation bind:currentUserInformation bind:currentColorTheme />
+    <div class="card" style="margin-top: 0px;">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: left;width:30px;"
+                                        >Announcements</th
+                                    >
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody bind:this={announcementsRow}> </tbody>
+                        </table>
                     </div>
-                    <a href="/people/">See rankings...</a>
                 </div>
             </div>
+            <a href="/people/">See rankings...</a>
         </div>
-    </body>
-    <Footer />
-</html>
+    </div>
+</div>
+<Footer />
