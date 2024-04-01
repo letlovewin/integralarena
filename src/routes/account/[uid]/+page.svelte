@@ -63,7 +63,7 @@
                                 '<span style="color:#FA0000">C</span><span style="color:#FA4100">r</span><span style="color:#FA8200">e</span><span style="color:#FAC400">a</span><span style="color:#EFFA00">t</span><span style="color:#AEFA00">o</span><span style="color:#6DFA00">r</span> <span style="color:#2BFA00">o</span><span style="color:#00FA16">f</span> <span style="color:#00FA57">I</span><span style="color:#00FA98">n</span><span style="color:#00FAD9">t</span><span style="color:#00D9FA">e</span><span style="color:#0098FA">g</span><span style="color:#0057FA">r</span><span style="color:#0016FA">a</span><span style="color:#2B00FA">l</span><span style="color:#6D00FA">s</span><span style="color:#AE00FA">A</span><span style="color:#EF00FA">r</span><span style="color:#FA00C4">e</span><span style="color:#FA0082">n</span><span style="color:#FA0041">a</span>';
                         } else if (rating <= 70) {
                             givenTitle =
-                                '<p class="text-primary" style="text-align:left;">Novice integrator</p>';
+                                '<p style="color:#1f95cc" style="text-align:left;">Novice integrator</p>';
                         } else if (rating <= 140) {
                             givenTitle =
                                 '<p class="text-warning" style="text-align:left;">Warming up</p>';
@@ -87,9 +87,9 @@
                                     submissions.push([key, { key: value }]);
                                 }
                                 for (
-                                    let i = submissions.length - 1;
-                                    i > -1;
-                                    i--
+                                    let i = 0;
+                                    i < submissions.length;
+                                    i++
                                 ) {
                                     new SubmissionsRow({
                                         target: submissionsTable,
@@ -144,7 +144,7 @@
         bind:competitiveUserInformation
     />
     <Navigation bind:currentUserInformation bind:currentColorTheme />
-    {#key display}
+    {#key data}
         <div class="card" style="margin-top: 0px;">
             <div class="card-body">
                 <h3 style="text-align: left;">
