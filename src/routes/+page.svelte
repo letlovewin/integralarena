@@ -61,6 +61,7 @@
 <html data-bs-theme={currentColorTheme} lang="en">
     <head>
         <meta charset="utf-8" />
+        <meta name="google-site-verification" content="lUKKjxqRuE0azrMidIronf1LujkFmZTJ4JHmLy2Bdvw" />
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, shrink-to-fit=no"

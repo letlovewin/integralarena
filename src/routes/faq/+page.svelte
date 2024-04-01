@@ -71,7 +71,7 @@
                             <strong>What format do I submit answers in?</strong>
                         </li>
                         <p>
-                            Format them as you normally would, don't forget your constant of integration!
+                            Formatting is mostly the same. Please look at <a href="https://mathjs.org/docs/expressions/syntax.html">this document</a> to know the formatting in its entirety, though.
                         </p>
                         <li>
                             <strong>What do the different verdicts mean?</strong>

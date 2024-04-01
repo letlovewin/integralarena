@@ -164,7 +164,7 @@
                         </blockquote>
 
                         <p>Submissions</p>
-                        <div class="table-responsive">
+                        <div class="table-responsive overflow-scroll" style="max-height:450px;">
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>

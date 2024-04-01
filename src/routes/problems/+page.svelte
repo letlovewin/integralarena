@@ -16,7 +16,7 @@
         signIn,
         authErrorState,
         problemsRow,
-        currentColorTheme="light";
+        currentColorTheme = "light";
     const appConfig = {
         apiKey: "AIzaSyDiDHodqqgXhmjtaharNv0yCLBnc-kDWe0",
         authDomain: "integralsarena.firebaseapp.com",
@@ -32,17 +32,27 @@
     } else {
         firebaseApp = getApp();
     }
-    if (browser) { //DO NOT DELETE THIS IF STATEMENT. IF YOU DO YOU WILL GET THE MOST FUCKING ANNOYING ERROR IN EXISTENCE AND YOU WON'T KNOW WHY.
+    let problems = [];
+    if (browser) {
+        //DO NOT DELETE THIS IF STATEMENT. IF YOU DO YOU WILL GET THE MOST FUCKING ANNOYING ERROR IN EXISTENCE AND YOU WON'T KNOW WHY.
         const database = getDatabase(firebaseApp);
         let problemset;
         get(child(ref(database), `/problems/`)).then((snapshot) => {
             if (snapshot.exists()) {
-                let problems = [];
                 for (const [key, value] of Object.entries(snapshot.val())) {
-                    problems.push([key,{rating:value.rating,origin:value.origin,statement:value.statement},]);
+                    problems.push([
+                        key,
+                        {
+                            rating: value.rating,
+                            origin: value.origin,
+                            statement: value.statement,
+                        },
+                    ]);
                 }
-                problems.sort(function(a,b){return(a[1].rating-b[1].rating)});
-                for(let i = problems.length-1;i>-1;i--) {
+                problems.sort(function (a, b) {
+                    return a[1].rating - b[1].rating;
+                });
+                for (let i = problems.length - 1; i > -1; i--) {
                     new ProblemTableRow({
                         target: problemsRow,
                         props: {
@@ -58,7 +68,7 @@
     }
 </script>
 
-<html data-bs-theme="{currentColorTheme}" lang="en">
+<html data-bs-theme={currentColorTheme} lang="en">
     <head>
         <meta charset="utf-8" />
         <meta
@@ -85,7 +95,8 @@
                 bind:authErrorState
                 bind:competitiveUserInformation
             />
-            <Navigation bind:currentUserInformation bind:currentColorTheme/>
+            <Navigation bind:currentUserInformation bind:currentColorTheme />
+
             <div class="card" style="margin-top: 0px;">
                 <div class="card-body">
                     <h4 style="text-align: left;">Problems</h4>
@@ -110,7 +121,11 @@
                                             <th>Origin</th>
                                         </tr>
                                     </thead>
-                                    <tbody bind:this={problemsRow}> </tbody>
+                                    {#await problems}
+                                        <p>Loading problems...</p>
+                                    {:then}
+                                        <tbody bind:this={problemsRow}> </tbody>
+                                    {/await}
                                 </table>
                             </div>
                         </div>

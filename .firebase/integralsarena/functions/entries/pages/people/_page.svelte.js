@@ -1,4 +1,4 @@
-import { c as create_ssr_component, d as add_attribute, e as escape, v as validate_component } from "../../../chunks/ssr.js";
+import { c as create_ssr_component, d as add_attribute, e as escape, v as validate_component, i as is_promise, n as noop } from "../../../chunks/ssr.js";
 import { getApps, initializeApp, getApp } from "firebase/app";
 import "firebase/database";
 import { A as Auth, N as Navigation, F as Footer } from "../../../chunks/Footer.js";
@@ -18,6 +18,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   } else {
     getApp();
   }
+  let people = [];
   let $$settled;
   let $$rendered;
   let previous_head = $$result.head;
@@ -83,7 +84,15 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         }
       },
       {}
-    )} <div class="card" style="margin-top: 0px;"><div class="card-body"><h4 style="text-align: left;" data-svelte-h="svelte-16hzwbo">People</h4> <div class="row"><div class="col"><div class="table-responsive"><table class="table table-striped table-hover"><thead data-svelte-h="svelte-ytqbib"><tr><th style="text-align: left;width: 111.188px;">Username</th> <th style="text-align: center;width: 695.188px;">Battle Cry</th> <th style="text-align: center;width: 111.188px;">Elo</th></tr></thead> <tbody${add_attribute("this", peopleRow, 0)} data-svelte-h="svelte-1l4v907"></tbody></table></div></div></div></div></div></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
+    )} <div class="card" style="margin-top: 0px;"><div class="card-body"><h4 style="text-align: left;" data-svelte-h="svelte-16hzwbo">People</h4> <div class="row"><div class="col"><div class="table-responsive"><table class="table table-striped table-hover"><thead data-svelte-h="svelte-ytqbib"><tr><th style="text-align: left;width: 111.188px;">Username</th> <th style="text-align: center;width: 695.188px;">Battle Cry</th> <th style="text-align: center;width: 111.188px;">Elo</th></tr></thead> ${function(__value) {
+      if (is_promise(__value)) {
+        __value.then(null, noop);
+        return ` <p data-svelte-h="svelte-18k1xf7">Loading people...</p> `;
+      }
+      return function() {
+        return ` <tbody${add_attribute("this", peopleRow, 0)} data-svelte-h="svelte-1l4v907"></tbody> `;
+      }();
+    }(people)}</table></div></div></div></div></div></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
   } while (!$$settled);
   return $$rendered;
 });

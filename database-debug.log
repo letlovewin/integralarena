@@ -1,5 +1,8 @@
-20:12:55.533 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
-20:12:55.774 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
-20:12:58.693 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - integralsarena-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 157ms, init: 0ms
-20:12:58.847 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace integralsarena-default-rtdb status Active to Active
-22:10:23.658 [NamespaceSystem-blocking-namespace-operation-dispatcher-13] INFO com.firebase.core.namespace.StateManager - Namespace integralsarena-default-rtdb status Active to Active
+12:15:55.681 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+12:15:56.051 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+12:16:07.194 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - integralsarena-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 166ms, init: 0ms
+12:16:07.321 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace integralsarena-default-rtdb status Active to Active
+12:50:35.608 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+12:50:35.622 [NamespaceSystem-akka.actor.default-dispatcher-12] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: integralsarena-default-rtdb
+12:50:35.627 [NamespaceSystem-akka.actor.default-dispatcher-13] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for integralsarena-default-rtdb
+12:50:35.632 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.

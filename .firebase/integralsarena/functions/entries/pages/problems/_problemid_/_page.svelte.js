@@ -95,7 +95,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       },
       {}
     )} <div class="card" style="margin-top: 0px;"><div class="card-body float-end"${add_attribute("this", verdictBody, 0)}><h1><!-- HTML_TAG_START -->${statement}<!-- HTML_TAG_END --></h1> <h6 class="text-primary">${escape(rating)} points</h6> <h6><em>${escape(title)}</em></h6> ${currentUserInformation != null ? `${currentUserInformation == "nouser" ? `<p data-svelte-h="svelte-1bvaimr">Oops! It seems like you&#39;re not logged in.
-                                    Want to <a href="/login/">log in</a>?</p>` : `<math-field class="w-100" style="font-size:1rem; display: block"${add_attribute("this", mathematicalExpressionInput, 0)}></math-field> <button class="btn btn-primary" type="button" id="button-addon2" data-svelte-h="svelte-3u7t7p">Submit</button>`}` : ``}</div></div></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
+                                    Want to <a href="/login/">log in</a>?</p>` : `<math-field class="w-100" style="font-size:1rem; display: block"${add_attribute("this", mathematicalExpressionInput, 0)}></math-field> <button class="btn btn-primary mt-4" type="button" ${""}>Submit</button> <br> ${``}`}` : ``}</div></div></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
   } while (!$$settled);
   return $$rendered;
 });

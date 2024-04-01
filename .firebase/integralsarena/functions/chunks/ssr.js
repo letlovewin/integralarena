@@ -1,5 +1,9 @@
 function noop() {
 }
+function is_promise(value) {
+  return !!value && (typeof value === "object" || typeof value === "function") && typeof /** @type {any} */
+  value.then === "function";
+}
 function run(fn) {
   return fn();
 }
@@ -117,6 +121,7 @@ export {
   add_attribute as d,
   escape as e,
   getContext as g,
+  is_promise as i,
   missing_component as m,
   noop as n,
   safe_not_equal as s,

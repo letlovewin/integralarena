@@ -21,7 +21,8 @@
         authErrorState,
         currentColorTheme = "light",
         mathematicalExpressionInput,
-        verdictBody;
+        verdictBody,
+        submissionButton = false;
     const firebaseConfig = {
         apiKey: "AIzaSyDiDHodqqgXhmjtaharNv0yCLBnc-kDWe0",
         authDomain: "integralsarena.firebaseapp.com",
@@ -78,6 +79,7 @@
         "https://us-central1-integralsarena.cloudfunctions.net/judgeMathematicalExpression";
     function submitMathematicalExpression(expression) {
         console.log(expression);
+        submissionButton = true;
         fetch(virtualJudgeAPIUrl, {
             method: "POST",
             body: JSON.stringify({
@@ -94,7 +96,8 @@
             })
             .then((Res) => {
                 let code = Res.code;
-                console.log(code);
+                //console.log(code);
+                submissionButton = false;
                 if (code == "true") {
                     fire(0.25, {
                         spread: 26,
@@ -127,6 +130,7 @@
                     }, 1000);
                 } else if (code == "false") {
                     new IncorrectVerdict({ target: verdictBody });
+                    
                 } else {
                     new ErrorVerdict({ target: verdictBody });
                 }
@@ -183,18 +187,27 @@
                                     class="w-100"
                                     style="font-size:1rem; display: block"
                                     bind:this={mathematicalExpressionInput}
-                                    ></math-field
-                                >
+                                ></math-field>
                                 <button
-                                    class="btn btn-primary"
+                                    class="btn btn-primary mt-4"
                                     type="button"
-                                    id="button-addon2"
+                                    disabled={submissionButton}
                                     on:click={() => {
                                         submitMathematicalExpression(
                                             mathematicalExpressionInput.value,
                                         );
                                     }}>Submit</button
                                 >
+                                <br />
+                                {#key submissionButton}
+                                    {#if submissionButton == true}
+                                        <img
+                                            src={"/img/loading.gif"}
+                                            alt="Loading gif"
+                                            style="width:64px;height:64px;margin-top:4px;"
+                                        />
+                                    {/if}
+                                {/key}
                             {/if}
                         {/if}
                     {/key}

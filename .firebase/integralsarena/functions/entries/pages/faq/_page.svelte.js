@@ -69,10 +69,10 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         }
       },
       {}
-    )} <div class="card" style="margin-top: 0px;" data-svelte-h="svelte-klzooo"><div class="card-body"><h4 style="text-align:left;">FAQ</h4> <ul style="text-align:left;"><li><strong>On indefinite integrals, do I have to include
+    )} <div class="card" style="margin-top: 0px;" data-svelte-h="svelte-1j6m77c"><div class="card-body"><h4 style="text-align:left;">FAQ</h4> <ul style="text-align:left;"><li><strong>On indefinite integrals, do I have to include
                                 the constant of integration?</strong></li> <p>Yes, include them.</p> <li><strong>When are new problems added?</strong></li> <p><a href="mailto:portughalam@gmail.com">Email me</a> and
                             submit more problems. Please include where you got the
-                            problem from.</p> <li><strong>What format do I submit answers in?</strong></li> <p>Format them as you normally would, don&#39;t forget your constant of integration!</p> <li><strong>What do the different verdicts mean?</strong></li> <p><span class="text-danger">RJ</span> - Your submission was rejected.</p> <p><span class="text-success">AC</span> - Your submission was accepted.</p> <p>You can see all of your submissions on your profile.</p> <li><strong>What can I put in my battle cry?</strong></li> <p>Literally anything. You can put emojis, images, whatever.</p></ul></div></div></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
+                            problem from.</p> <li><strong>What format do I submit answers in?</strong></li> <p>Formatting is mostly the same. Please look at <a href="https://mathjs.org/docs/expressions/syntax.html">this document</a> to know the formatting in its entirety, though.</p> <li><strong>What do the different verdicts mean?</strong></li> <p><span class="text-danger">RJ</span> - Your submission was rejected.</p> <p><span class="text-success">AC</span> - Your submission was accepted.</p> <p>You can see all of your submissions on your profile.</p> <li><strong>What can I put in my battle cry?</strong></li> <p>Literally anything. You can put emojis, images, whatever.</p></ul></div></div></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
   } while (!$$settled);
   return $$rendered;
 });

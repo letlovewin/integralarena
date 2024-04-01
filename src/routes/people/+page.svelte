@@ -32,13 +32,14 @@
     } else {
         firebaseApp = getApp();
     }
+    let people = [];
     if (browser) {
         //DO NOT DELETE THIS IF STATEMENT. IF YOU DO YOU WILL GET THE MOST FUCKING ANNOYING ERROR IN EXISTENCE AND YOU WON'T KNOW WHY.
         const database = getDatabase(firebaseApp);
-        let problemset;
+        
         get(child(ref(database), `/users/`)).then((snapshot) => {
             if (snapshot.exists()) {
-                let people = [];
+                
                 for (const [key, value] of Object.entries(snapshot.val())) {
                     //console.log(value);
                     let battle_cry;
@@ -118,7 +119,11 @@
                                             >
                                         </tr>
                                     </thead>
-                                    <tbody bind:this={peopleRow}> </tbody>
+                                    {#await people}
+                                        <p>Loading people...</p>
+                                    {:then}
+                                        <tbody bind:this={peopleRow}> </tbody>
+                                    {/await}
                                 </table>
                             </div>
                         </div>
