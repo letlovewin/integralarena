@@ -5,6 +5,7 @@
     import Auth from "../Auth.svelte";
     import Navigation from "../Navigation.svelte";
     import Footer from "../Footer.svelte";
+    import CompetitionsTableRow from "./CompetitionsTableRow.svelte";
 
     let webAppAuthComponent,
         webAppTitleState = "IntegralsArena",
@@ -16,6 +17,9 @@
         authErrorState,
         peopleRow,
         currentColorTheme = "light";
+
+    let currentCompetitionsBody, pastCompetitionsBody;
+    
     const appConfig = {
         apiKey: "AIzaSyDiDHodqqgXhmjtaharNv0yCLBnc-kDWe0",
         authDomain: "integralsarena.firebaseapp.com",
@@ -31,47 +35,104 @@
     } else {
         firebaseApp = getApp();
     }
-    let people = [];
+    let past_competitions = [];
+    let current_competitions = [];
     if (browser) {
         //DO NOT DELETE THIS IF STATEMENT. IF YOU DO YOU WILL GET THE MOST FUCKING ANNOYING ERROR IN EXISTENCE AND YOU WON'T KNOW WHY.
         const database = getDatabase(firebaseApp);
-        /*
-        get(child(ref(database), `/users/`)).then((snapshot) => {
+        get(child(ref(database), `/past_competitions/`)).then((snapshot) => {
             if (snapshot.exists()) {
                 for (const [key, value] of Object.entries(snapshot.val())) {
-                    //console.log(value);
-                    let battle_cry;
-                    if (value.battle_cry === "") {
-                        battle_cry = "No battle cry...";
-                    } else {
-                        battle_cry = value.battle_cry;
-                    }
-                    people.push([
+                    past_competitions.push([
                         key,
                         {
-                            rating: value.username,
-                            origin: parseInt(value.elo),
-                            statement: battle_cry,
+                            title: value.title,
+                            description: value.description,
+                            runtime: value.runtime,
                         },
                     ]);
                 }
-                people.sort(function (a, b) {
-                    return a[1].origin - b[1].origin;
-                });
-                for (let i = people.length - 1; i > -1; i--) {
-                    new PeopleTableRow({
-                        target: peopleRow,
+                if(past_competitions.length==0) {
+                    new CompetitionsTableRow({
+                        target: pastCompetitionsBody,
                         props: {
-                            rating: people[i][1].rating,
-                            origin: people[i][1].origin,
-                            statement: people[i][1].statement,
-                            link: people[i][0],
+                            cid: "",
+                            title: "",
+                            description: "No past competitions...",
+                            runtime: ""
                         },
                     });
                 }
+                for (let i = past_competitions.length - 1; i > -1; i--) {
+                    new CompetitionsTableRow({
+                        target: pastCompetitionsBody,
+                        props: {
+                            cid: past_competitions[i][0],
+                            title: past_competitions[i][1].title,
+                            description: past_competitions[i][1].description,
+                            runtime: past_competitions[i][1].runtime
+                        },
+                    });
+                }
+            } else {
+                new CompetitionsTableRow({
+                        target: pastCompetitionsBody,
+                        props: {
+                            cid: "",
+                            title: "",
+                            description: "No past competitions...",
+                            runtime: ""
+                        },
+                    });
             }
         });
-        */
+
+        get(child(ref(database), `/current_competitions/`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                for (const [key, value] of Object.entries(snapshot.val())) {
+                    current_competitions.push([
+                        key,
+                        {
+                            title: value.title,
+                            description: value.description,
+                            runtime: value.runtime,
+                        },
+                    ]);
+                }
+                if(current_competitions.length==0) {
+                    new CompetitionsTableRow({
+                        target: currentCompetitionsBody,
+                        props: {
+                            cid: "",
+                            title: "",
+                            description: "No current competitions...",
+                            runtime: ""
+                        },
+                    });
+                }
+                for (let i = current_competitions.length - 1; i > -1; i--) {
+                    new CompetitionsTableRow({
+                        target: currentCompetitionsBody,
+                        props: {
+                            cid: past_competitions[i][0],
+                            title: past_competitions[i][1].title,
+                            description: past_competitions[i][1].description,
+                            runtime: past_competitions[i][1].runtime
+                        },
+                    });
+                }
+            } else {
+                new CompetitionsTableRow({
+                        target: currentCompetitionsBody,
+                        props: {
+                            cid: "",
+                            title: "",
+                            description: "No current competitions...",
+                            runtime: ""
+                        },
+                    });
+            }
+        });
     }
 </script>
 
@@ -100,7 +161,14 @@
     <div class="card" style="margin-top: 0px;">
         <div class="card-body">
             <h4 style="text-align: left;">Competitions</h4>
+            {#key currentUserInformation}
+            {#if currentUserInformation!=undefined && currentUserInformation!="nouser"}
+            <a href="/competitions/create" class="float-end" style="text-align: right;">Start a competition</a>
+            {/if}
+            {/key}
+            <br />
             <div class="row">
+                <h5 style="text-align: left;">Current competitions</h5>
                 <div class="col">
                     <div class="table-responsive">
                         <table class="table table-striped table-hover">
@@ -120,6 +188,35 @@
                                     >
                                 </tr>
                             </thead>
+                            <tbody bind:this={currentCompetitionsBody}>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h5 style="text-align: left;">Past competitions</h5>
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th
+                                        style="text-align: left;width: 111.188px;"
+                                        >Name</th
+                                    >
+                                    <th
+                                        style="text-align: center;width: 695.188px;"
+                                        >Description</th
+                                    >
+                                    <th
+                                        style="text-align: center;width: 111.188px;"
+                                        >Runtime</th
+                                    >
+                                </tr>
+                            </thead>
+                            <tbody bind:this={pastCompetitionsBody}>
+                            </tbody>
                         </table>
                     </div>
                 </div>

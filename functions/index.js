@@ -1,10 +1,10 @@
-const { onRequest } = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
+import { onRequest } from "firebase-functions/v2/https";
+import * as logger from "firebase-functions/logger";
 
-const { initializeApp } = require("firebase-admin/app");
-const { getDatabase } = require("firebase-admin/database")
-const { getAuth } = require("firebase-admin/auth")
-const { create, all } = require("mathjs");
+import { initializeApp } from "firebase-admin/app";
+import { getDatabase } from "firebase-admin/database";
+import { getAuth } from "firebase-admin/auth";
+import { create } from "mathjs";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDiDHodqqgXhmjtaharNv0yCLBnc-kDWe0",
@@ -17,95 +17,69 @@ const firebaseConfig = {
     databaseURL: "https://integralsarena-default-rtdb.firebaseio.com/"
 };
 
+const mathConfig = {
+    epsilon: 1e-12,
+    matrix: 'Matrix',
+    number: 'number',
+    precision: 64,
+    predictable: false,
+    randomSeed: null
+}
+
 const firebaseApp = initializeApp(firebaseConfig)
 const firebaseAuth = getAuth(firebaseApp);
 const firebaseDatabase = getDatabase(firebaseApp);
 
-function random(size) {
-    //returns a crypto-safe random
-    return require("crypto").randomBytes(size).toString('hex');
-}
+/**
+ * @function judgeMathematicalExpression
+ * @params request
+ * @description Returns true if the given expression is correct, false otherwise.
+ */
 
-
-
-/*
-    @Function judgeMathematicalExpression
-    @Description Function that judges a given mathematical expression.
-
-*/
-
-exports.judgeMathematicalExpression = onRequest({ cors: true }, (request, response) => {
+export const judgeMathematicalExpression = onRequest({ cors: true }, (request, response) => {
     const Res = request.body;
     const expression = Res.expression;
     const problemid = Res.problemid;
     const user = Res.user_info;
     const answerRef = firebaseDatabase.ref(`solutions/${problemid}`);
-    const config = {
-        epsilon: 1e-12,
-        matrix: 'Matrix',
-        number: 'number',
-        precision: 64,
-        predictable: false,
-        randomSeed: null
-    }
-    const math = create(all, config)
+    
+    const math = create(all, mathConfig);
+
     answerRef.once('value', (answerSnapshot) => {
         const solution = answerSnapshot.val().solution;
         try {
             const ans = math.symbolicEqual(solution, expression);
             const uidRef = firebaseDatabase.ref(`users/${user.uid}`)
-                uidRef.once('value', (userSnapshot) => {
-                    logger.info(userSnapshot.val());
-                    let username = userSnapshot.val().username;
-                    let uid = userSnapshot.val().uid;
-                    let elo = userSnapshot.val().elo;
-                    let submissions = userSnapshot.val().submissions;
-                    let solved_problems = userSnapshot.val().solved_problems;
-                    let datetime = new Date();
-                    let verd;
-                    if(ans==true) {
-                        verd = "AC";
-                        if(submissions==undefined) {
-                            submissions = {};
-                            submissions[`${datetime}`] = {problem: problemid, verdict: verd};
-                        } else {
-                            submissions[`${datetime}`] = {problem: problemid, verdict: verd};
-                        }
-                        let battle_cry = userSnapshot.val().battle_cry;
-                        const problemRef = firebaseDatabase.ref(`problems/${problemid}`);
-                        problemRef.once('value',(problemSnapshot)=>{
-                            if(solved_problems==undefined) {
-                                solved_problems = {};
-                                solved_problems[`${problemid}`] = 1;
-                                elo +=  problemSnapshot.val().rating;
-                            } else {
-                                if(solved_problems[`${problemid}`]==undefined) {
-                                    elo +=  problemSnapshot.val().rating;
-                                    solved_problems[`${problemid}`] = 1;
-                                }
-                            }
-                            uidRef.set({
-                                username: username,
-                                uid: uid,
-                                elo: elo,
-                                solved_problems: solved_problems,
-                                submissions: submissions,
-                                battle_cry: battle_cry
-                            }).then(() => {
-                                response.send({ code: `${ans}` });
-                                return;
-                            });
-                        })
-                        
+            uidRef.once('value', (userSnapshot) => {
+                logger.info(userSnapshot.val());
+                let username = userSnapshot.val().username;
+                let uid = userSnapshot.val().uid;
+                let elo = userSnapshot.val().elo;
+                let submissions = userSnapshot.val().submissions;
+                let solved_problems = userSnapshot.val().solved_problems;
+                let datetime = new Date();
+                let verd;
+                if (ans == true) {
+                    verd = "AC";
+                    if (submissions == undefined) {
+                        submissions = {};
+                        submissions[`${datetime}`] = { problem: problemid, verdict: verd };
                     } else {
-                        verd = "RJ";
-                        if(submissions==undefined) {
-                            submissions = {};
-                            submissions[`${datetime}`] = {problem: problemid, verdict: verd};
+                        submissions[`${datetime}`] = { problem: problemid, verdict: verd };
+                    }
+                    let battle_cry = userSnapshot.val().battle_cry;
+                    const problemRef = firebaseDatabase.ref(`problems/${problemid}`);
+                    problemRef.once('value', (problemSnapshot) => {
+                        if (solved_problems == undefined) {
+                            solved_problems = {};
+                            solved_problems[`${problemid}`] = 1;
+                            elo += problemSnapshot.val().rating;
                         } else {
-                            submissions[`${datetime}`] = {problem: problemid, verdict: verd};
+                            if (solved_problems[`${problemid}`] == undefined) {
+                                elo += problemSnapshot.val().rating;
+                                solved_problems[`${problemid}`] = 1;
+                            }
                         }
-                        let battle_cry = userSnapshot.val().battle_cry;
                         uidRef.set({
                             username: username,
                             uid: uid,
@@ -117,29 +91,52 @@ exports.judgeMathematicalExpression = onRequest({ cors: true }, (request, respon
                             response.send({ code: `${ans}` });
                             return;
                         });
+                    })
+
+                } else {
+                    verd = "RJ";
+                    if (submissions == undefined) {
+                        submissions = {};
+                        submissions[`${datetime}`] = { problem: problemid, verdict: verd };
+                    } else {
+                        submissions[`${datetime}`] = { problem: problemid, verdict: verd };
                     }
-                    
-                })
+                    let battle_cry = userSnapshot.val().battle_cry;
+                    uidRef.set({
+                        username: username,
+                        uid: uid,
+                        elo: elo,
+                        solved_problems: solved_problems,
+                        submissions: submissions,
+                        battle_cry: battle_cry
+                    }).then(() => {
+                        response.send({ code: `${ans}` });
+                        return;
+                    });
+                }
+
+            })
         } catch (error) {
             response.send({ code: `${error}` });
             return;
         }
-        
+
 
     })
 
 })
 
-//https://ominous-chainsaw-5j67v69j556fjpg-5001.app.github.dev/integralsarena/us-central1/judgeMathematicalExpression
+/**
+ * @function createAccount
+ * @description Creates an account for the user from an API call.
+ * @params request
+ * @var username
+ * @var email
+ * @var password
+ * @returns string
+ */
 
-/*
-
-    @Function createAccount
-    @Description Function that creates an account given a username, email, and password.
-
-*/
-
-exports.createAccount = onRequest({ cors: true }, (request, response) => {
+export const createAccount = onRequest({ cors: true }, (request, response) => {
     const Res = request.body;
     const username = Res.body_username;
     const email = Res.body_email;
@@ -196,3 +193,78 @@ exports.createAccount = onRequest({ cors: true }, (request, response) => {
 
 
 })
+
+/**
+ * @function openCompetition
+ * @description Creates an entry in the realtime database for a competition, leaving it open to join.
+ * @params request
+ */
+
+export const openCompetition = onRequest({ cors: true }, (request, response) => {
+    const Req = request.body;
+    if(parseInt(Req.time_limit)>23) {
+        response.send({code:"tle"});
+        return;
+    }
+    const competition_information = {
+        status: "open",
+        time_limit: Req.time_limit,
+        problems: Req.problems,
+        participants: {},
+        cid: 0,
+    };
+    const currentCompetitionRef = firebaseDatabase.ref(`/current_competitions/${competition_information.cid}`);
+    currentCompetitionRef.set(competition_information, ()=>{
+        /**
+         * @todo
+         * Manage cloud task scheduler
+         */
+    })
+})
+
+export const closeCompetition = onRequest({cors:true},(request,response)=>{
+    const Req = request.body;
+    if(parseInt(Req.time_limit)>23) {
+        response.send({code:"tle"});
+        return;
+    }
+    const competition_information = {
+        status: "closed",
+        time_limit: Req.time_limit,
+        problems: Req.problems,
+        participants: Req.participants,
+        cid: Req.cid,
+    };
+    const currentCompetitionRef = firebaseDatabase.ref(`/current_competitions/${competition_information.cid}`);
+    currentCompetitionRef.set(competition_information) //Competition closed, frontend should not allow the submission of new problems.
+})
+
+/**
+ * @function judgeCompetitionMathematicalExpression
+ * @params request
+ * @description Returns true if the given expression is correct, false otherwise.
+ */
+
+export const judgeCompetitionMathematicalExpression = onRequest({ cors: true }, (request, response) => {
+    const Res = request.body;
+    const expression = Res.expression;
+    const problemid = Res.problemid;
+    const user = Res.user_info;
+    const answerRef = firebaseDatabase.ref(`solutions/${problemid}`);
+    
+    const math = create(all, mathConfig);
+
+    answerRef.once('value', (answerSnapshot) => {
+        const solution = answerSnapshot.val().solution;
+        try {
+            const ans = math.symbolicEqual(solution, expression);
+            const uidRef = firebaseDatabase.ref(`users/${user.uid}`)
+
+        } catch (error) {
+            response.send({ code: `${error}` });
+            return;
+        }
+    })
+
+})
+

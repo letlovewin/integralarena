@@ -1,10 +1,10 @@
 a {
     text-decoration: none;
-    color:#032e9c;
+    color:#1f95cc;
 }
 
 blockquote {
-    background: #f9f9f9;
+    background: #2e2e2e;
     border-left: 10px solid #ccc;
     margin: 1.5em 10px;
     padding: 0.5em 10px;
@@ -44,4 +44,11 @@ math-field::part(virtual-keyboard-toggle) {
 /* Hide the menu toggle */
 math-field::part(menu-toggle) {
     display: none;
+}
+
+math-field {
+    --selection-background-color: rgba(255,255,255,0);
+    --selection-background-color-focused: rgba(255,255,255,0);
+    --contains-highlight-background-color: rgba(255,255,255,0);
+    
 }

@@ -1,4 +1,4 @@
-import { c as create_ssr_component, d as add_attribute, e as escape, v as validate_component } from "../../chunks/ssr.js";
+import { c as create_ssr_component, e as escape, v as validate_component, d as add_attribute } from "../../chunks/ssr.js";
 import { getApps, initializeApp, getApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { A as Auth, N as Navigation, F as Footer } from "../../chunks/Footer.js";
@@ -26,7 +26,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   do {
     $$settled = true;
     $$result.head = previous_head;
-    $$rendered = `<html${add_attribute("data-bs-theme", currentColorTheme, 0)} lang="en"><head><meta charset="utf-8"> <meta name="google-site-verification" content="lUKKjxqRuE0azrMidIronf1LujkFmZTJ4JHmLy2Bdvw"> <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"> <title>${escape(webAppTitleState)}</title></head> <body class="bg-body" style="background: var(--bs-secondary-bg);color: var(--bs-card-bg);"><div class="container" style="text-align: center;background: transparent;color: transparent;max-width: 1000px;">${validate_component(Auth, "Auth").$$render(
+    $$rendered = `${$$result.head += `<!-- HEAD_svelte-f65bqz_START --><meta charset="utf-8"><meta name="google-site-verification" content="lUKKjxqRuE0azrMidIronf1LujkFmZTJ4JHmLy2Bdvw"><meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">${$$result.title = `<title>${escape(webAppTitleState)}</title>`, ""}<!-- HEAD_svelte-f65bqz_END -->`, ""} ${validate_component(Auth, "Auth").$$render(
       $$result,
       {
         this: webAppAuthComponent,
@@ -68,7 +68,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         }
       },
       {}
-    )} ${validate_component(Navigation, "Navigation").$$render(
+    )} <div class="container" style="text-align: center;background: transparent;color: transparent;max-width: 1000px;">${validate_component(Navigation, "Navigation").$$render(
       $$result,
       {
         currentUserInformation,
@@ -85,7 +85,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         }
       },
       {}
-    )} <div class="card" style="margin-top: 0px;"><div class="card-body"><div class="row"><div class="col"><div class="table-responsive"><table class="table table-striped table-hover"><thead data-svelte-h="svelte-1wdch1d"><tr><th style="text-align: left;width:30px;">Announcements</th> <th></th> <th></th></tr></thead> <tbody${add_attribute("this", announcementsRow, 0)} data-svelte-h="svelte-1skx85c"></tbody></table></div></div></div> <a href="/people/" data-svelte-h="svelte-10n9ew7">See rankings...</a></div></div></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
+    )} <div class="card" style="margin-top: 0px;"><div class="card-body"><div class="row"><div class="col"><div class="table-responsive"><table class="table table-striped table-hover"><thead data-svelte-h="svelte-18q7kfj"><tr><th style="text-align: left;width:30px;">Announcements</th> <th></th> <th></th></tr></thead> <tbody${add_attribute("this", announcementsRow, 0)} data-svelte-h="svelte-1m0ze"></tbody></table></div></div></div> <a href="/people/" data-svelte-h="svelte-10n9ew7">See rankings...</a></div></div></div> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}`;
   } while (!$$settled);
   return $$rendered;
 });

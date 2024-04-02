@@ -1,6 +1,4 @@
 <script>
-    import { goto } from "$app/navigation";
-    import { browser } from "$app/environment";
     import Auth from "../Auth.svelte";
     import Navigation from "../Navigation.svelte";
     import Footer from "../Footer.svelte";

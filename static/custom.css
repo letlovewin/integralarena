@@ -45,3 +45,10 @@ math-field::part(virtual-keyboard-toggle) {
 math-field::part(menu-toggle) {
     display: none;
 }
+
+math-field {
+    --selection-background-color: rgba(255,255,255,0);
+    --selection-background-color-focused: rgba(255,255,255,0);
+    --contains-highlight-background-color: rgba(255,255,255,0);
+    
+}

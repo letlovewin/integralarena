@@ -1,4 +1,4 @@
-import { c as create_ssr_component, d as add_attribute, e as escape, v as validate_component } from "../../../../chunks/ssr.js";
+import { c as create_ssr_component, e as escape, v as validate_component, d as add_attribute } from "../../../../chunks/ssr.js";
 import { getApps, initializeApp, getApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import "../../../../chunks/stores.js";
@@ -33,7 +33,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   do {
     $$settled = true;
     $$result.head = previous_head;
-    $$rendered = `<html${add_attribute("data-bs-theme", currentColorTheme, 0)} lang="en"><head><meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"> <title>${escape(webAppTitleState)}</title></head> <body class="bg-body" style="background: var(--bs-secondary-bg);color: var(--bs-card-bg);"><div class="container" style="text-align: center;background: transparent;color: transparent;max-width: 1000px;">${validate_component(Auth, "Auth").$$render(
+    $$rendered = `${$$result.head += `<!-- HEAD_svelte-i1ljz8_START --><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">${$$result.title = `<title>${escape(webAppTitleState)}</title>`, ""}<!-- HEAD_svelte-i1ljz8_END -->`, ""} <div class="container" style="text-align: center;background: transparent;color: transparent;max-width: 1000px;">${validate_component(Auth, "Auth").$$render(
       $$result,
       {
         this: webAppAuthComponent,
@@ -92,7 +92,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         }
       },
       {}
-    )} <div class="card" style="margin-top: 0px;"><div class="card-body"><h3 style="text-align: left;"><strong>${escape(username)}</strong></h3> <p style="text-align: left;"><!-- HTML_TAG_START -->${givenTitle}<!-- HTML_TAG_END --></p> <h6 style="text-align: left;">Elo: ${escape(rating)}</h6> <blockquote><em><!-- HTML_TAG_START -->${institution}<!-- HTML_TAG_END --></em></blockquote> <p data-svelte-h="svelte-1t336m5">Submissions</p> <div class="table-responsive overflow-scroll" style="max-height:450px;"><table class="table table-striped table-hover"><thead data-svelte-h="svelte-14fm2s9"><tr><th>Date</th> <th>Problem</th> <th style="width: 145.312px;">Verdict</th></tr></thead> <tbody${add_attribute("this", submissionsTable, 0)}></tbody></table></div></div></div></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
+    )} <div class="card" style="margin-top: 0px;"><div class="card-body"><h3 style="text-align: left;"><strong>${escape(username)}</strong></h3> <p style="text-align: left;"><!-- HTML_TAG_START -->${givenTitle}<!-- HTML_TAG_END --></p> <h6 style="text-align: left;">Elo: ${escape(rating)}</h6> <blockquote><em><!-- HTML_TAG_START -->${institution}<!-- HTML_TAG_END --></em></blockquote> <p data-svelte-h="svelte-1t336m5">Submissions</p> <div class="table-responsive overflow-scroll" style="max-height:450px;"><table class="table table-striped table-hover"><thead data-svelte-h="svelte-mh7gx"><tr><th>Date</th> <th>Problem</th> <th style="width: 145.312px;">Verdict</th></tr></thead> <tbody${add_attribute("this", submissionsTable, 0)}></tbody></table></div></div></div></div> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}`;
   } while (!$$settled);
   return $$rendered;
 });

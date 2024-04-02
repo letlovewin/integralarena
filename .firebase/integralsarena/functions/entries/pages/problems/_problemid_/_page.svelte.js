@@ -1,4 +1,4 @@
-import { c as create_ssr_component, d as add_attribute, e as escape, v as validate_component } from "../../../../chunks/ssr.js";
+import { c as create_ssr_component, e as escape, v as validate_component, d as add_attribute } from "../../../../chunks/ssr.js";
 import { getApps, initializeApp, getApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import "../../../../chunks/stores.js";
@@ -35,7 +35,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   do {
     $$settled = true;
     $$result.head = previous_head;
-    $$rendered = `<html${add_attribute("data-bs-theme", currentColorTheme, 0)} lang="en"><head><meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"> <script defer src="//unpkg.com/mathlive" data-svelte-h="svelte-l0rqga"><\/script> <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js" data-svelte-h="svelte-1mkpkuv"><\/script> <title>${escape(webAppTitleState)}</title></head> <body class="bg-body" style="background: var(--bs-secondary-bg);color: var(--bs-card-bg);"><div class="container" style="text-align: center;background: transparent;color: transparent;max-width: 1000px;">${validate_component(Auth, "Auth").$$render(
+    $$rendered = `${$$result.head += `<!-- HEAD_svelte-1tvkka9_START --><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"><script defer src="//unpkg.com/mathlive" data-svelte-h="svelte-l0rqga"><\/script><script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js" data-svelte-h="svelte-jrakev"><\/script>${$$result.title = `<title>${escape(webAppTitleState)}</title>`, ""}<!-- HEAD_svelte-1tvkka9_END -->`, ""} <div class="container" style="text-align: center;background: transparent;color: transparent;max-width: 1000px;">${validate_component(Auth, "Auth").$$render(
       $$result,
       {
         this: webAppAuthComponent,
@@ -94,8 +94,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         }
       },
       {}
-    )} <div class="card" style="margin-top: 0px;"><div class="card-body float-end"${add_attribute("this", verdictBody, 0)}><h1><!-- HTML_TAG_START -->${statement}<!-- HTML_TAG_END --></h1> <h6 class="text-primary">${escape(rating)} points</h6> <h6><em>${escape(title)}</em></h6> ${currentUserInformation != null ? `${currentUserInformation == "nouser" ? `<p data-svelte-h="svelte-1bvaimr">Oops! It seems like you&#39;re not logged in.
-                                    Want to <a href="/login/">log in</a>?</p>` : `<math-field class="w-100" style="font-size:1rem; display: block"${add_attribute("this", mathematicalExpressionInput, 0)}></math-field> <button class="btn btn-primary mt-4" type="button" ${""}>Submit</button> <br> ${``}`}` : ``}</div></div></div></body> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</html>`;
+    )} <div class="card" style="margin-top: 0px;"><div class="card-body float-end"${add_attribute("this", verdictBody, 0)}><h1><!-- HTML_TAG_START -->${statement}<!-- HTML_TAG_END --></h1> <h6 class="text-primary">${escape(rating)} points</h6> <h6><em>${escape(title)}</em></h6> ${currentUserInformation != null ? `${currentUserInformation == "nouser" ? `<p data-svelte-h="svelte-ppsjbj">Oops! It seems like you&#39;re not logged in. Want to <a href="/login/">log in</a>?</p>` : `<math-field class="w-100" style="font-size:1rem; display: block"${add_attribute("this", mathematicalExpressionInput, 0)}></math-field> <button class="btn btn-primary mt-4" type="button" ${""}>Submit</button> <br> ${``}`}` : ``}</div></div></div> ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}`;
   } while (!$$settled);
   return $$rendered;
 });

@@ -62,7 +62,7 @@
         } else {
             userAuthState = false;
             currentUserInformation = "nouser";
-            if ($page.route.id === "/settings") {
+            if ($page.route.id === "/settings"||$page.route.id === "/competitions/create") {
                 if (browser) {
                     goto("/login");
                 }
@@ -71,11 +71,16 @@
     });
 
     export const resetPassword = async function(email) {
+        if(email==="") {
+            authErrorState = "Email can't be empty";
+            return;
+        }
         sendPasswordResetEmail(firebaseAuth,email).then(()=>{
             
         })
         .catch((error)=>{
             authErrorState = "An unknown error occurred. Please reload the website and try again";
+            return;
         })
     }
 
