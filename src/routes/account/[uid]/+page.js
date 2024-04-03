@@ -6,11 +6,11 @@
 
 */
 
-/*
-    @function load
-    @param {params}
-    @description Gets the username that was plugged into the URL and passes it to the +page.svelte.
-*/
+/**
+ * 
+ * @param {uid} param0 
+ * @returns username that was inputted
+ */
 
 export function load({ params }) {
     let pid = params.uid;

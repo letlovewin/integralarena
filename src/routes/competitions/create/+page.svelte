@@ -6,6 +6,7 @@
     import Navigation from "../../Navigation.svelte";
     import Footer from "../../Footer.svelte";
     import ProblemTableRow from "./ProblemTableRow.svelte";
+    import { create } from "mathjs";
 
     let webAppAuthComponent,
         webAppTitleState = "IntegralsArena",
@@ -19,6 +20,8 @@
         currentColorTheme = "light";
 
     let problemSelectionGroup = [];
+    let contestCreationAPIUrl = "https://opencompetition-33v4mh7ysq-uc.a.run.app";
+
 
     const appConfig = {
         apiKey: "AIzaSyDiDHodqqgXhmjtaharNv0yCLBnc-kDWe0",
@@ -70,6 +73,26 @@
             }
         });
     }
+    let competition_name, competition_description, time_limit;
+    function createCompetition() {
+        fetch(contestCreationAPIUrl, {
+            method: "POST",
+            body: JSON.stringify({
+                time_limit: time_limit,
+                problems: problemSelectionGroup,
+                name: competition_name,
+                description: competition_description
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            },
+        }) .then((code) => {
+                return code.json();
+            })
+            .then((Res) => {
+                let code = Res.code;
+            })
+}
 </script>
 
 <svelte:head>
@@ -97,14 +120,28 @@
     <div class="card">
         <div class="card-body">
             <h4 style="text-align: left;">Create a competition</h4>
-            <input type="text" class="form-control" placeholder="Competition name..." aria-label="Competition name">
-            <textarea class="form-control my-2" placeholder="Competition description..." aria-label="Competition description"></textarea>
-            <input type="number" class="form-control my-2" placeholder="Time limit (hours)" aria-label="Time limit (hours)">
-            <hr>
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Competition name..."
+                aria-label="Competition name"
+                bind:value={competition_name}
+            />
+            <textarea
+                class="form-control my-2"
+                placeholder="Competition description..."
+                aria-label="Competition description"
+                bind:value={competition_description}
+            ></textarea>
+            <input
+                type="number"
+                class="form-control my-2"
+                placeholder="Time limit (hours)"
+                aria-label="Time limit (hours)"
+                bind:value={time_limit}
+            />
+            <hr />
             <h6>Problems</h6>
-            {#key problemSelectionGroup}
-            <p>{problemSelectionGroup}</p>
-            {/key}
             <div class="row overflow-scroll" style="height:380px;">
                 <div class="col">
                     <div class="table-responsive">
@@ -132,7 +169,9 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary mt-4">Create competition</button>
+            <button class="btn btn-primary mt-4" on:click={createCompetition}
+                >Create competition</button
+            >
         </div>
     </div>
 </div>

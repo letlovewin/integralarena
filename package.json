@@ -17,7 +17,9 @@
 	"type": "module",
 	"dependencies": {
 		"@cortex-js/compute-engine": "^0.24.1",
+		"@google-cloud/tasks": "^5.3.0",
 		"firebase": "^10.10.0",
-		"mathjs": "^12.4.1"
+		"mathjs": "^12.4.1",
+		"node-cron": "^3.0.3"
 	}
 }

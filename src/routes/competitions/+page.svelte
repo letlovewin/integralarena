@@ -93,9 +93,9 @@
                     current_competitions.push([
                         key,
                         {
-                            title: value.title,
+                            title: value.name,
                             description: value.description,
-                            runtime: value.runtime,
+                            runtime: value.time_limit + " hours",
                         },
                     ]);
                 }
@@ -114,10 +114,10 @@
                     new CompetitionsTableRow({
                         target: currentCompetitionsBody,
                         props: {
-                            cid: past_competitions[i][0],
-                            title: past_competitions[i][1].title,
-                            description: past_competitions[i][1].description,
-                            runtime: past_competitions[i][1].runtime
+                            cid: current_competitions[i][0],
+                            title: current_competitions[i][1].title,
+                            description: current_competitions[i][1].description,
+                            runtime: current_competitions[i][1].runtime
                         },
                     });
                 }

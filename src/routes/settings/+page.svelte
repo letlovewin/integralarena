@@ -86,7 +86,7 @@
                                     your junk folder, or click the button below.
                                     If you mistakenly signed up with a wrong
                                     email, <a
-                                        href="mailto:portughalam@gmail.com"
+                                        href="mailto:graygreenridge@ucsd.edu"
                                         >contact me</a
                                     >.
                                 </p>

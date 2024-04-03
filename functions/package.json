@@ -14,9 +14,12 @@
   "main": "index.js",
   "dependencies": {
     "@cortex-js/compute-engine": "^0.24.1",
+    "@google-cloud/tasks": "^5.3.0",
     "firebase-admin": "^11.8.0",
     "firebase-functions": "^4.3.1",
-    "mathjs": "^12.4.1"
+    "google-protobuf": "^3.21.2",
+    "mathjs": "^12.4.1",
+    "node-cron": "^3.0.3"
   },
   "devDependencies": {
     "firebase-functions-test": "^3.1.0"
